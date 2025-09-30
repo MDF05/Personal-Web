@@ -16,6 +16,7 @@ export default function CertificationsCard({
   >;
   index: number;
   isVisible: boolean;
+  grup?: string[];
 }) {
   return (
     <Card

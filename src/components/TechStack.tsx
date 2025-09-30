@@ -1,21 +1,16 @@
 import { useEffect, useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import {
-  Globe,
-  Smartphone,
-  Monitor,
-  Server,
-  Database,
-  Cpu,
-  Bot,
-} from "lucide-react";
+
 import { TechStackDetail } from "./TechStackDetail";
+import { techCategories } from "@/data/technologies.data";
+import { TechCategoryTypes } from "@/types/technologies.types";
 
 const TechStack = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const [activeCategory, setActiveCategory] = useState(0);
-  const [selectedCategory, setSelectedCategory] = useState<any>(null);
+  const [activeCategory, setActiveCategory] = useState<number>(0);
+  const [selectedCategory, setSelectedCategory] =
+    useState<TechCategoryTypes>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -32,117 +27,6 @@ const TechStack = () => {
 
     return () => observer.disconnect();
   }, []);
-
-  const techCategories = [
-    {
-      icon: Globe,
-      title: "Web Development",
-      color: "primary",
-      technologies: [
-        "Next.js",
-        "React",
-        "TypeScript",
-        "Tailwind CSS",
-        "HTML5",
-        "CSS3",
-        "JavaScript",
-        "SASS",
-        "Framer Motion",
-      ],
-    },
-    {
-      icon: Smartphone,
-      title: "Mobile Development",
-      color: "primary",
-      technologies: [
-        "React Native",
-        "Flutter",
-        "Expo",
-        "Android Studio",
-        "iOS Development",
-        "PWA",
-        "Ionic",
-        "Cordova",
-      ],
-    },
-    {
-      icon: Monitor,
-      title: "Desktop Development",
-      color: "primary",
-      technologies: [
-        "Electron",
-        "Tauri",
-        "Qt",
-        "JavaFX",
-        "WPF",
-        ".NET",
-        "Python GUI",
-        "C++ Qt",
-      ],
-    },
-    {
-      icon: Server,
-      title: "Backend Development",
-      color: "primary",
-      technologies: [
-        "Node.js",
-        "Express",
-        "NestJS",
-        "Python",
-        "FastAPI",
-        "Django",
-        "PostgreSQL",
-        "MongoDB",
-      ],
-    },
-    {
-      icon: Database,
-      title: "Database & Cloud",
-      color: "primary",
-      technologies: [
-        "PostgreSQL",
-        "MongoDB",
-        "Redis",
-        "Supabase",
-        "Firebase",
-        "AWS",
-        "Vercel",
-        "Docker",
-      ],
-    },
-    {
-      icon: Cpu,
-      title: "IoT Development",
-      color: "accent",
-      technologies: [
-        "Coming Soon",
-        "Arduino",
-        "Raspberry Pi",
-        "ESP32",
-        "MQTT",
-        "Sensors",
-        "Embedded Systems",
-      ],
-      isComingSoon: true,
-    },
-    {
-      icon: Bot,
-      title: "Machine Learning & AI",
-      color: "accent",
-      technologies: [
-        "Python",
-        "TensorFlow",
-        "PyTorch",
-        "scikit-learn",
-        "Keras",
-        "OpenCV",
-        "NLP",
-        "Computer Vision",
-        "Coming Soon",
-      ],
-      isComingSoon: true,
-    },
-  ];
 
   return (
     <section
@@ -213,23 +97,25 @@ const TechStack = () => {
 
                 {/* Technologies */}
                 <div className="relative z-10 flex flex-wrap gap-2 justify-center">
-                  {category.technologies.slice(0, 4).map((tech) => (
-                    <Badge
-                      key={tech}
-                      variant="outline"
-                      className={`border-${category.color}/30 text-${
-                        category.color
-                      } hover:bg-${
-                        category.color
-                      }/10 transition-colors duration-300 font-rajdhani ${
-                        tech === "Coming Soon"
-                          ? "text-accent border-accent/50"
-                          : ""
-                      }`}
-                    >
-                      {tech}
-                    </Badge>
-                  ))}
+                  {category.technologies.slice(0, 4).map((tech) => {
+                    return (
+                      <Badge
+                        key={tech[0]}
+                        variant="outline"
+                        className={`border-${category.color}/30 text-${
+                          category.color
+                        } hover:bg-${
+                          category.color
+                        }/10 transition-colors duration-300 font-rajdhani ${
+                          tech[0] === "Coming Soon"
+                            ? "text-accent border-accent/50"
+                            : ""
+                        }`}
+                      >
+                        {tech[0]}
+                      </Badge>
+                    );
+                  })}
                   {category.technologies.length > 4 && (
                     <Badge
                       variant="outline"

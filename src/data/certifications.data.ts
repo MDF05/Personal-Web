@@ -23,7 +23,7 @@ export const certification: Omit<CertificationTypes, "id">[] = [
     title: "Javascript Introduction - SoloLearn Certificate",
     issuer: "SoloLearn",
     issueDate: "08 April 2023",
-    validUntil: "selamanya",
+    validUntil: null,
     credentialId: "-",
     description:
       "Pembelajaran JavaScript ini berfokus pada penguasaan konsep dasar yang menjadi fondasi dalam pemrograman. Materi mencakup pemahaman penggunaan operator aritmatika dan assignment untuk melakukan perhitungan serta pengelolaan nilai, dilanjutkan dengan pengolahan teks menggunakan string, template literals, dan teknik string concatenation. Selain itu, dipelajari pula logika pemrograman melalui boolean dan operator perbandingan yang kemudian diterapkan dalam berbagai struktur kendali seperti if/else, switch, dan ternary operator untuk pengambilan keputusan. Aspek pengulangan dibahas melalui penggunaan perulangan for dan while, termasuk pengendali alur break dan continue. Pembelajaran juga menekankan pentingnya modularisasi kode melalui fungsi, dengan pemahaman tentang parameter dan nilai kembalian (return values), sehingga kode dapat ditulis lebih efisien, terstruktur, dan mudah dipelihara.",
@@ -47,12 +47,13 @@ export const certification: Omit<CertificationTypes, "id">[] = [
     image: javascriptIntro,
     downloadUrl: javascriptIntro,
     featured: true,
+    categories: ["web", "general", "mobile", "backend"],
   },
   {
     title: "Program Microsoft Office",
     issuer: "LKP DUTA",
     issueDate: "06 October 2023",
-    validUntil: "selamanya",
+    validUntil: null,
     credentialId: "-",
     description:
       "Pembelajaran aplikasi Microsoft Office mencakup penguasaan lima program utama yang mendukung produktivitas kerja. Microsoft Word digunakan untuk membuat, mengedit, dan memformat dokumen secara profesional. Microsoft Excel berfokus pada pengolahan data, perhitungan dengan rumus, serta analisis melalui tabel dan grafik. Microsoft PowerPoint diajarkan untuk merancang presentasi visual yang efektif dan menarik. Microsoft Outlook digunakan sebagai sarana manajemen email, kalender, dan komunikasi bisnis yang terorganisir. Sementara itu, Microsoft Access diperkenalkan untuk membangun serta mengelola basis data yang lebih kompleks. Kombinasi keterampilan ini membekali pengguna dengan kemampuan komprehensif dalam mengelola dokumen, data, komunikasi, dan presentasi di lingkungan kerja modern.",
@@ -68,12 +69,13 @@ export const certification: Omit<CertificationTypes, "id">[] = [
     image: LKPDUtaMicrosoftOffice,
     downloadUrl: LKPDUtaMicrosoftOffice,
     featured: true,
+    categories: ["general", "office"],
   },
   {
     title: "Sertifikasi Microsoft Office Lisensi BNSP",
     issuer: "Udemy Indonesia",
     issueDate: "02 October 2023",
-    validUntil: "selamanya",
+    validUntil: null,
     credentialId: "-",
     description:
       "Mengikuti program sertifikasi Microsoft Office dengan lisensi BNSP melalui Udemy Indonesia, memperdalam keterampilan aplikasi perkantoran dengan standar kompetensi nasional.",
@@ -89,12 +91,13 @@ export const certification: Omit<CertificationTypes, "id">[] = [
     image: LKPDUtaMicrosoftOffice,
     downloadUrl: LKPDUtaMicrosoftOffice,
     featured: true,
+    categories: ["general", "office"],
   },
   {
     title: "Introduction CSS - SoloLearn Certificate",
     issuer: "SoloLearn",
     issueDate: "19 October 2023",
-    validUntil: "selamanya",
+    validUntil: null,
     credentialId: "-",
     description:
       "Pembelajaran CSS ini berfokus pada penguasaan keterampilan dasar hingga menengah dalam merancang tampilan halaman web yang menarik dan terstruktur. Materi dimulai dari pemahaman CSS selectors serta penggunaan class dan ID untuk mengatur elemen secara spesifik, kemudian dilanjutkan dengan teknik styling teks, pengaturan font, serta penerapan box model untuk mengelola ukuran, padding, margin, dan tata letak elemen. Selain itu, dipelajari pula pengaturan visual melalui borders, backgrounds, serta format untuk lists, links, tables, dan forms agar antarmuka lebih fungsional dan konsisten. Konsep lanjutan mencakup positioning elemen di halaman, penggunaan transformasi untuk mengubah skala atau rotasi, hingga penerapan transitions dan animations untuk menciptakan interaksi yang lebih dinamis dan responsif. Dengan keterampilan ini, CSS dapat dimanfaatkan secara efektif untuk membangun desain web yang estetis, terstruktur, dan user-friendly.",
@@ -116,12 +119,13 @@ export const certification: Omit<CertificationTypes, "id">[] = [
     image: introductionCSS,
     downloadUrl: introductionCSS,
     featured: true,
+    categories: ["web", "general", "mobile", "frontend"],
   },
   {
     title: "Introduction HTML - SoloLearn Certificate",
     issuer: "SoloLearn",
     issueDate: "19 October 2023",
-    validUntil: "selamanya",
+    validUntil: null,
     credentialId: "-",
     description:
       "Pembelajaran HTML ini menekankan penguasaan elemen inti yang menjadi fondasi pembuatan halaman web. Materi dimulai dari struktur dasar HTML Core serta penggunaan heading untuk hierarki konten, kemudian dilanjutkan dengan penyisipan gambar, teks dengan berbagai format, serta penerapan komentar sebagai dokumentasi kode. Selanjutnya dipelajari pengelolaan atribut, pembuatan tautan dan daftar, serta pengembangan navigasi agar halaman lebih interaktif dan terstruktur. Materi juga mencakup pembuatan form untuk input data, tabel untuk penyajian informasi, serta integrasi multimedia berupa audio dan video. Pada tahap akhir, diperkenalkan konsep page layout untuk mengatur susunan elemen dalam halaman sehingga lebih rapi, fungsional, dan mudah diakses. Dengan keterampilan ini, HTML dapat dimanfaatkan secara optimal sebagai kerangka utama dalam pembangunan website modern.",
@@ -143,12 +147,13 @@ export const certification: Omit<CertificationTypes, "id">[] = [
     image: introductionHTML,
     downloadUrl: introductionHTML,
     featured: true,
+    categories: ["web", "general", "mobile", "frontend"],
   },
   {
     title: "Javascript Intermediate - SoloLearn Certificate",
     issuer: "SoloLearn",
     issueDate: "19 September 2024",
-    validUntil: "selamanya",
+    validUntil: null,
     credentialId: "-",
     description:
       "Pembelajaran JavaScript lanjutan ini berfokus pada penguasaan konsep modern dan praktik terbaik dalam pengembangan aplikasi web. Materi mencakup pemanfaatan fitur ES6 seperti arrow function, let/const, dan modularisasi, diikuti dengan keterampilan manipulasi DOM untuk mengelola elemen halaman secara dinamis. Konsep asynchronous programming diperdalami melalui penggunaan Promise dan async/await, disertai penerapan Fetch API untuk berinteraksi dengan data eksternal dalam format JSON. Manajemen data lokal didukung oleh pemahaman Local Storage, sementara topik lanjutan seperti closures, higher-order functions, serta prototypes dan inheritance memperkuat pemahaman fundamental JavaScript. Peserta juga mempelajari modularisasi kode dengan modules dan classes, cara kerja event loop dan hoisting, serta teknik debugging dan optimisasi performa. Pada aspek pengembangan profesional, diperkenalkan penggunaan NPM dan build tools untuk manajemen dependensi, serta Git untuk kolaborasi tim dan version control. Dengan keterampilan ini, JavaScript dapat dimanfaatkan secara menyeluruh mulai dari manipulasi tampilan hingga pengembangan aplikasi web modern yang efisien, terstruktur, dan kolaboratif.",
@@ -173,6 +178,7 @@ export const certification: Omit<CertificationTypes, "id">[] = [
     image: javascriptIntermediate,
     downloadUrl: javascriptIntermediate,
     featured: true,
+    categories: ["web", "general", "mobile", "frontend", "backend"],
   },
   {
     title: "Belajar Dasar Pemrograman Web",
@@ -195,6 +201,7 @@ export const certification: Omit<CertificationTypes, "id">[] = [
     image: BDasarPemrogramanWeb,
     downloadUrl: BDasarPemrogramanWeb,
     featured: true,
+    categories: ["web", "general", "frontend"],
   },
   {
     title: "Belajar Dasar Pemrograman JavaScript",
@@ -220,6 +227,7 @@ export const certification: Omit<CertificationTypes, "id">[] = [
     image: BDasarPemrogramanJavascript,
     downloadUrl: BDasarPemrogramanJavascript,
     featured: true,
+    categories: ["web", "general", "mobile", "frontend", "backend"],
   },
   {
     title: "Belajar Membuat Frontend Web untuk Pemula",
@@ -240,6 +248,7 @@ export const certification: Omit<CertificationTypes, "id">[] = [
     image: BMembuatFrontendPemula,
     downloadUrl: BMembuatFrontendPemula,
     featured: true,
+    categories: ["web", "general", "frontend"],
   },
   {
     title: "Belajar Membuat Aplikasi Web dengan React",
@@ -254,12 +263,13 @@ export const certification: Omit<CertificationTypes, "id">[] = [
     image: membuatAplikasiReact,
     downloadUrl: membuatAplikasiReact,
     featured: true,
+    categories: ["web", "general", "frontend"],
   },
   {
     title: "Introduction to SQL - SoloLearn Certificate",
     issuer: "Sololearn",
     issueDate: "04 December 2024",
-    validUntil: "selamanya",
+    validUntil: null,
     credentialId: "CC-HTQV2VCS",
     description:
       "Pembelajaran SQL ini mencakup penguasaan keterampilan inti dalam mengelola dan menganalisis data pada database relasional. Fokus dimulai dari pemahaman struktur tabel, relasi antar data, serta penulisan query dasar untuk menampilkan informasi, kemudian berkembang pada teknik penyaringan dengan kondisi logis, pengurutan, pembatasan hasil, hingga pengelompokan data menggunakan fungsi agregasi untuk menghasilkan analisis yang lebih mendalam. Selain itu, diberikan penekanan pada debugging, standar penulisan query yang baik, serta praktik terbaik dalam menjaga efisiensi dan keterbacaan kode. Tidak hanya terbatas pada pengambilan data, materi juga mencakup pembersihan dan perbaikan tipe data agar informasi lebih akurat serta siap dianalisis. Kompetensi yang diperoleh memungkinkan penggunaan SQL tidak hanya sebagai alat akses data, tetapi juga sebagai sarana analisis, interpretasi, dan penyajian wawasan yang dapat mendukung pengambilan keputusan berbasis data.",
@@ -287,6 +297,7 @@ export const certification: Omit<CertificationTypes, "id">[] = [
     image: introdSQL,
     downloadUrl: introdSQL,
     featured: true,
+    categories: ["backend", "cloud-database", "general"],
   },
   {
     title: "Belajar Dasar AI",
@@ -306,12 +317,13 @@ export const certification: Omit<CertificationTypes, "id">[] = [
     image: dasarAI,
     downloadUrl: dasarAI,
     featured: true,
+    categories: ["ai", "general"],
   },
   {
     title: "Intro to Software Engineering",
     issuer: "Revou (Revolusi Cita Edukasi)",
     issueDate: "27 September 2024",
-    validUntil: "selamanya",
+    validUntil: null,
     credentialId: "-",
     description:
       "Pembelajaran ini mencakup dasar-dasar software development dengan fokus pada pembuatan aplikasi web yang terstruktur dan fungsional. Materi dimulai dari pemahaman prinsip user interface (UI) untuk merancang tampilan yang ramah pengguna, kemudian dilanjutkan dengan penguasaan HTML sebagai kerangka halaman, CSS untuk pengaturan gaya dan tata letak, serta JavaScript untuk menambahkan interaktivitas. Selanjutnya, keterampilan tersebut diintegrasikan dalam website development, di mana peserta mempraktikkan pembangunan situs yang utuh, responsif, dan interaktif sesuai kebutuhan pengguna. Sebagai penutup, dilakukan penerapan melalui mini project yang berfungsi sebagai sarana latihan membangun produk nyata, sekaligus memperkuat pemahaman konsep dan keterampilan teknis. Dengan alur pembelajaran ini, kompetensi yang dicapai tidak hanya mencakup teori dasar, tetapi juga praktik langsung dalam merancang dan mengembangkan website secara menyeluruh.",
@@ -328,12 +340,13 @@ export const certification: Omit<CertificationTypes, "id">[] = [
     image: introSoftwareEngineering,
     downloadUrl: introSoftwareEngineering,
     featured: true,
+    categories: ["web", "general", "frontend"],
   },
   {
     title: "Seleksi Bootcamp Fullstack Developer – DumbWays.id",
     issuer: "PT Dumbways Indonesia",
     issueDate: "20 July 2024",
-    validUntil: "selamanya",
+    validUntil: null,
     credentialId: "669092a24f3758004031d00f&t=r",
     description:
       "Pembelajaran ini berfokus pada penguasaan keterampilan full-stack web development dengan memanfaatkan teknologi modern. Materi dimulai dari HTML, CSS, dan JavaScript sebagai fondasi untuk membangun struktur, tampilan, serta interaktivitas pada website. Selanjutnya, dipelajari Node.js dan Express untuk mengembangkan server-side application yang efisien, termasuk perancangan dan implementasi REST API sebagai penghubung antara front-end dan back-end. Pada sisi tampilan dinamis, digunakan view engine seperti EJS dan Handlebars (HBS) untuk mengelola data dan konten yang ditampilkan ke pengguna. Aspek pengembangan profesional juga ditekankan melalui pemahaman Git & GitHub untuk version control dan kolaborasi, Postman untuk pengujian API, serta deployment agar aplikasi dapat diakses secara online. Dengan kombinasi keterampilan ini, pengembangan web dapat dilakukan secara menyeluruh, mulai dari perancangan antarmuka hingga implementasi server dan distribusi aplikasi ke lingkungan produksi.",
@@ -354,12 +367,13 @@ export const certification: Omit<CertificationTypes, "id">[] = [
     image: seleksiBootcamp,
     downloadUrl: seleksiBootcamp,
     featured: true,
+    categories: ["web", "general", "frontend", "backend", "cloud-database"],
   },
   {
     title: "Fullstack Developer Graduate – DumbWays.id",
     issuer: "PT Dumbways Indonesia",
     issueDate: "31 Januari 2025",
-    validUntil: "selamanya",
+    validUntil: null,
     credentialId: "id:669092a24f3758004031d00f",
     description:
       "Pembelajaran dan penguasaan keterampilan ini mencakup ruang lingkup yang luas dalam dunia software development modern, mulai dari pengembangan front-end, back-end, hingga mobile dan cloud. Pada sisi front-end, dikuasai berbagai framework dan library seperti React, Next.js, Vue.js, Angular, Svelte, Nuxt.js, Quasar, Ionic, serta beragam UI framework seperti Tailwind CSS, Chakra UI, Material UI, Radix UI, Ant Design, Bootstrap, Vuetify, dan jQuery untuk membangun antarmuka yang responsif dan user-friendly. Pada sisi back-end, dipelajari Node.js, Express.js, PHP (Laravel), Python (Django, Flask), Java (Spring Boot), C# (.NET Core), serta pengembangan REST API untuk mendukung arsitektur aplikasi modern. Pengelolaan data diperkuat melalui penguasaan database relasional maupun non-relasional seperti PostgreSQL, MySQL, Oracle Database, SQL Server, dan MongoDB. Untuk mobile development, dipahami penggunaan React Native, Flutter, Kotlin, dan Swift sebagai fondasi pembuatan aplikasi lintas platform. Selain itu, kompetensi teknologi diperluas dengan pemahaman Docker, CI/CD pipelines, cloud deployment (AWS), serta version control dengan Git & GitHub, ditambah keterampilan testing dan debugging untuk memastikan kualitas perangkat lunak. Tidak hanya aspek teknis, pembelajaran juga mencakup UI/UX design dan metodologi kerja Agile untuk mendukung pengembangan produk yang terstruktur. Lebih jauh lagi, soft skills seperti project management, team collaboration, problem solving, communication, time management, adaptability, critical thinking, continuous learning, attention to detail, dan creativity menjadi penunjang utama dalam menyelesaikan tantangan pengembangan perangkat lunak secara profesional dan kolaboratif.",
@@ -430,6 +444,15 @@ export const certification: Omit<CertificationTypes, "id">[] = [
     image: graduateBootcamp,
     downloadUrl: graduateBootcamp,
     featured: true,
+    categories: [
+      "web",
+      "general",
+      "frontend",
+      "backend",
+      "mobile",
+      "cloud-database",
+      "desktop",
+    ],
   },
   {
     title:
@@ -458,6 +481,7 @@ export const certification: Omit<CertificationTypes, "id">[] = [
     image: memulaiDenganPython,
     downloadUrl: memulaiDenganPython,
     featured: true,
+    categories: ["general", "backend", "ai"],
   },
   {
     title:
@@ -478,26 +502,7 @@ export const certification: Omit<CertificationTypes, "id">[] = [
     image: visualisasiData,
     downloadUrl: visualisasiData,
     featured: true,
-  },
-  {
-    title:
-      "Visualisasi Data - Coding Camp 2025 powered by DBS Foundation - Low Touch",
-    issuer: "DBS Foundation - Laskar AI",
-    issueDate: "08 Juni 2025 ",
-    validUntil: "08 Juni 208",
-    credentialId: "53XED215KPRN",
-    description:
-      "Pembelajaran ini berfokus pada penguasaan visualisasi data sebagai sarana untuk menyajikan informasi secara lebih jelas dan bermakna. Materi dimulai dari pengenalan visualisasi data yang menekankan pentingnya representasi visual dalam memahami pola, tren, dan hubungan dalam data. Selanjutnya dipelajari tahap persiapan data pra-visualisasi, yaitu proses pembersihan dan pengolahan agar data siap digunakan. Setelah itu, diperkenalkan teknik transformasi data ke visual dengan memanfaatkan grafik, diagram, atau chart yang sesuai untuk menggambarkan informasi secara akurat. Pada tahap akhir, dibahas cara menggunakan visualisasi data secara efektif dalam komunikasi, analisis, maupun pengambilan keputusan berbasis data. Dengan keterampilan ini, visualisasi data dapat dimanfaatkan sebagai alat strategis untuk menyederhanakan informasi kompleks menjadi insight yang mudah dipahami.",
-    skills: [
-      "Pengenalan Visualisasi Data",
-      "Persiapan Data Pra-Visualisasi",
-      "Tranformasi Data Ke Visual",
-      "Bagaimana menggunakan Visualisasi Data",
-    ],
-    verificationUrl: "https://www.dicoding.com/certificates/53XED215KPRN",
-    image: visualisasiData,
-    downloadUrl: visualisasiData,
-    featured: true,
+    categories: ["general", "ai"],
   },
   {
     title:
@@ -522,6 +527,7 @@ export const certification: Omit<CertificationTypes, "id">[] = [
     image: financialLiteracy,
     downloadUrl: financialLiteracy,
     featured: true,
+    categories: ["general", "office"],
   },
   {
     title:
@@ -547,6 +553,7 @@ export const certification: Omit<CertificationTypes, "id">[] = [
     image: BelajarMachineLearningPemula,
     downloadUrl: BelajarMachineLearningPemula,
     featured: true,
+    categories: ["general", "ai", "backend"],
   },
 ];
 

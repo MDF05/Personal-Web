@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Progress } from "@/components/ui/progress";
 import { Separator } from "@/components/ui/seperator";
+
 import {
   Dialog,
   DialogContent,
@@ -10,19 +10,14 @@ import {
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog";
-import {
-  X,
-  BookOpen,
-  Target,
-  TrendingUp,
-  Clock,
-  Star,
-  Award,
-  Zap,
-} from "lucide-react";
+import { X, BookOpen, Target, Clock, Star, Award, Zap } from "lucide-react";
+import { TechCategoryTypes } from "@/types/technologies.types";
+import { certificationsData } from "@/data/certifications.data";
+import CertificationsCard from "./CertificationsCard";
+import Certifications from "./Certifications";
 
 interface TechStackDetailProps {
-  category: any;
+  category: TechCategoryTypes;
   isOpen: boolean;
   onClose: () => void;
 }
@@ -32,6 +27,23 @@ export const TechStackDetail = ({
   isOpen,
   onClose,
 }: TechStackDetailProps) => {
+  const relatedCertifications = certificationsData.filter((cert) => {
+    if (category.title.toLocaleLowerCase() === "frontend development")
+      return (
+        cert.categories.includes("web") || cert.categories.includes("frontend")
+      );
+    else if (category.title.toLocaleLowerCase() === "backend development")
+      return (
+        cert.categories.includes("backend") || cert.categories.includes("web")
+      );
+    else if (category.title.toLocaleLowerCase() === "mobile development")
+      return cert.categories.includes("mobile");
+    else if (category.title.toLocaleLowerCase() === "desktop development")
+      return cert.categories.includes("desktop");
+    else if (category.title.toLocaleLowerCase() === "database & cloud")
+      return cert.categories.includes("cloud-database");
+  });
+
   // Handle ESC key
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
@@ -49,77 +61,6 @@ export const TechStackDetail = ({
   // Mock detailed tech stack data
   const techDetails = {
     ...category,
-    description: category.isComingSoon
-      ? "IoT development represents the next frontier in technology. I'm currently preparing to expand my expertise into Internet of Things development, focusing on embedded systems, sensor networks, and smart device integration."
-      : `Comprehensive expertise in ${category.title.toLowerCase()} covering modern frameworks, best practices, and cutting-edge technologies. Specialized in building scalable, performant, and maintainable applications.`,
-
-    experience: category.isComingSoon ? "Planned" : "3+ years",
-
-    proficiencyLevels: category.isComingSoon
-      ? [
-          { name: "Arduino", level: 0, learning: true },
-          { name: "Raspberry Pi", level: 0, learning: true },
-          { name: "ESP32", level: 0, learning: true },
-          { name: "MQTT", level: 0, learning: true },
-          { name: "Sensors", level: 0, learning: true },
-          { name: "Embedded Systems", level: 0, learning: true },
-        ]
-      : category.technologies.map((tech: string) => ({
-          name: tech,
-          level: Math.floor(Math.random() * 30) + 70, // 70-100% for existing skills
-          learning: false,
-        })),
-
-    learningRoadmap: category.isComingSoon
-      ? [
-          {
-            phase: "Phase 1: Fundamentals",
-            items: [
-              "Arduino Programming",
-              "Basic Electronics",
-              "Sensor Integration",
-            ],
-            timeline: "Q1 2025",
-          },
-          {
-            phase: "Phase 2: Advanced Systems",
-            items: [
-              "Raspberry Pi Projects",
-              "Network Communication",
-              "Data Processing",
-            ],
-            timeline: "Q2 2025",
-          },
-          {
-            phase: "Phase 3: Integration",
-            items: [
-              "Cloud Integration",
-              "Mobile App Connectivity",
-              "Real-time Monitoring",
-            ],
-            timeline: "Q3 2025",
-          },
-        ]
-      : [
-          {
-            phase: "Current Focus",
-            items: [
-              "Performance Optimization",
-              "Advanced Patterns",
-              "Testing Strategies",
-            ],
-            timeline: "Ongoing",
-          },
-          {
-            phase: "Next Quarter",
-            items: [
-              "New Framework Features",
-              "Security Best Practices",
-              "DevOps Integration",
-            ],
-            timeline: "Q1 2025",
-          },
-        ],
 
     projects: category.isComingSoon
       ? [
@@ -246,12 +187,9 @@ export const TechStackDetail = ({
               Technology Proficiency
             </h3>
             <div className="grid md:grid-cols-2 gap-4">
-              {techDetails.proficiencyLevels.map((tech: any, index: number) => (
+              {techDetails.skillsMapping.map((tech) => (
                 <div key={tech.name} className="space-y-2">
-                  <div className="flex justify-between items-center">
-                    <span className="font-orbitron font-medium">
-                      {tech.name}
-                    </span>
+                  <div className="flex gap-4 items-center">
                     {tech.learning ? (
                       <Badge
                         variant="outline"
@@ -260,13 +198,14 @@ export const TechStackDetail = ({
                         Coming Soon
                       </Badge>
                     ) : (
-                      <span className="text-sm text-muted-foreground font-rajdhani"></span>
+                      <span className="text-sm text-muted-foreground font-rajdhani">
+                        <tech.icon size={24} />
+                      </span>
                     )}
+                    <span className="font-orbitron font-medium">
+                      {tech.name}
+                    </span>
                   </div>
-                  {/* <Progress
-                    value={tech.learning ? 0 : tech.level}
-                    className="h-2"
-                  /> */}
                 </div>
               ))}
             </div>
@@ -281,7 +220,7 @@ export const TechStackDetail = ({
               Related Projects
             </h3>
             <div className="grid md:grid-cols-3 gap-4">
-              {techDetails.projects.map((project: any, index: number) => (
+              {techDetails.projects.map((project) => (
                 <div
                   key={project.name}
                   className="p-4 bg-card/20 rounded-lg neon-border hover:bg-card/30 transition-colors duration-300"
@@ -313,6 +252,32 @@ export const TechStackDetail = ({
 
           <Separator className="bg-primary/20" />
 
+          {/*//! certificate */}
+          <div className="space-y-4">
+            <h3 className="text-xl font-orbitron font-semibold text-primary flex items-center gap-2">
+              <Zap className="h-5 w-5" />
+              Related Certicate
+            </h3>
+            {/* <div className="grid md:grid-cols-2 gap-10  w-[100%] justify-center">
+              {relatedCertifications.map((cert, index) => (
+                <div className=" flex w-full justify-center">
+                  <CertificationsCard
+                    cert={cert}
+                    index={index}
+                    isVisible={true}
+                    setSelectedCertification={cert[0]}
+                  ></CertificationsCard>
+                </div>
+              ))}
+            </div> */}
+            <Certifications
+              isVisibleElements={true}
+              showHeader={false}
+            ></Certifications>
+          </div>
+
+          <Separator className="bg-primary/20" />
+
           {/* Achievements */}
           <div className="space-y-4">
             <h3 className="text-xl font-orbitron font-semibold text-accent flex items-center gap-2">
@@ -320,24 +285,22 @@ export const TechStackDetail = ({
               Key Achievements
             </h3>
             <div className="grid md:grid-cols-2 gap-4">
-              {techDetails.achievements.map(
-                (achievement: any, index: number) => (
-                  <div
-                    key={achievement.title}
-                    className="flex gap-3 p-4 bg-card/20 rounded-lg neon-border"
-                  >
-                    <Star className="h-5 w-5 text-accent mt-1 flex-shrink-0" />
-                    <div>
-                      <h4 className="font-orbitron font-semibold text-foreground mb-1">
-                        {achievement.title}
-                      </h4>
-                      <p className="text-sm text-muted-foreground font-rajdhani">
-                        {achievement.description}
-                      </p>
-                    </div>
+              {techDetails.achievements.map((achievement) => (
+                <div
+                  key={achievement.title}
+                  className="flex gap-3 p-4 bg-card/20 rounded-lg neon-border"
+                >
+                  <Star className="h-5 w-5 text-accent mt-1 flex-shrink-0" />
+                  <div>
+                    <h4 className="font-orbitron font-semibold text-foreground mb-1">
+                      {achievement.title}
+                    </h4>
+                    <p className="text-sm text-muted-foreground font-rajdhani">
+                      {achievement.description}
+                    </p>
                   </div>
-                )
-              )}
+                </div>
+              ))}
             </div>
           </div>
 
