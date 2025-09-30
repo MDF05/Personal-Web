@@ -3,14 +3,15 @@ import { CertificationDetail } from "./CertificationDetail";
 import { certificationsData } from "@/data/certifications.data";
 import { CertificationTypes } from "@/types/certifications.types";
 import CertificationsCard from "./CertificationsCard";
-import ButtonSeeMore from "./ButtonSeeMore";
-
 import { motion } from "framer-motion";
-
-interface CertificationComponentsProps {
-  isVisibleElements?: boolean;
-  showHeader?: boolean;
-}
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, Pagination, Navigation } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+import "../css/swiper.certifications.css";
+import ButtonSeeMore from "./ButtonSeeMore";
+import { CertificationComponentsProps } from "@/types/certification-components.types";
 
 const Certifications = ({
   isVisibleElements = false,
@@ -21,10 +22,23 @@ const Certifications = ({
     useState<CertificationTypes | null>(null);
 
   const [showAll, setShowAll] = useState(false);
+  const [visibleCount, setVisibleCount] = useState(0);
 
-  const containerRef = useRef<HTMLDivElement>(null);
+  const progressCircle = useRef<SVGSVGElement | null>(null);
+  const progressContent = useRef<HTMLSpanElement | null>(null);
 
-  const reversedCerts = [...certificationsData].reverse();
+  const onAutoplayTimeLeft = (_s, time, progress) => {
+    if (progressCircle.current) {
+      progressCircle.current.style.setProperty("--progress", `${1 - progress}`);
+    }
+    if (progressContent.current) {
+      progressContent.current.textContent = `${Math.ceil(time / 1000)}s`;
+    }
+  };
+
+  const displayedCerts = showAll
+    ? certificationsData
+    : certificationsData.slice(0, visibleCount);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -37,19 +51,29 @@ const Certifications = ({
     const element = document.getElementById("certifications");
     if (element) observer.observe(element);
 
-    return () => observer.disconnect();
-  }, []);
+    const handleResize = () => {
+      if (window.innerWidth < 640) setVisibleCount(2);
+      else if (window.innerWidth < 1024) setVisibleCount(showHeader ? 4 : 2);
+      else if (window.innerWidth < 1440) setVisibleCount(showHeader ? 6 : 4);
+      else setVisibleCount(showHeader ? 6 : 4);
+    };
 
-  function handleToggleShowAll() {
-    setShowAll(!showAll);
+    handleResize();
+    window.addEventListener("resize", handleResize);
 
-    if (!showAll && containerRef.current) {
-      // Scroll agar grid kelihatan penuh saat showAll
-      window.scrollTo({
-        top: containerRef.current.offsetTop - 100,
-        behavior: "smooth",
-      });
-    }
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [showHeader]);
+
+  function handleShowAll() {
+    setShowAll((prev) => !prev);
+
+    window.scrollTo({
+      top: document.getElementById("certificationsGrid")?.offsetTop || 0,
+      behavior: "smooth",
+    });
   }
 
   return (
@@ -79,64 +103,92 @@ const Certifications = ({
               </p>
               <div className="w-24 h-1 bg-gradient-primary mx-auto rounded-full mt-6" />
             </div>
+
+            {/* Certifications carousel */}
+            <Swiper
+              className="grid mySwiper"
+              spaceBetween={30}
+              centeredSlides={true}
+              autoplay={{
+                delay: 2500,
+                disableOnInteraction: false,
+              }}
+              pagination={{
+                clickable: true,
+              }}
+              navigation={true}
+              modules={[Autoplay, Pagination, Navigation]}
+              onAutoplayTimeLeft={onAutoplayTimeLeft}
+            >
+              {certificationsData.map((cert, index) => (
+                <SwiperSlide
+                  key={index}
+                  className="grid w-[90%] justify-center justify-items-center"
+                >
+                  <CertificationsCard
+                    cert={cert}
+                    index={index}
+                    setSelectedCertification={setSelectedCertification}
+                    isVisible={isVisible}
+                  />
+                </SwiperSlide>
+              ))}
+
+              <div
+                className="autoplay-progress z-50 absolute"
+                slot="container-end"
+              >
+                <svg viewBox="0 0 48 48" ref={progressCircle}>
+                  <circle cx="24" cy="24" r="20"></circle>
+                </svg>
+                <span ref={progressContent}></span>
+              </div>
+            </Swiper>
           </div>
         </div>
       )}
 
-      {/* Certifications Grid */}
-      <div
-        className="relative w-full"
-        id="certificationsGrid"
-        ref={containerRef}
-      >
-        <div
-          className={`grid gap-6 grid-cols-1 md:grid-cols-2 ${
+      {/* Certifications grid */}
+      <div className="relative w-full" id="certificationsGrid">
+        <motion.div
+          layout
+          transition={{ duration: 0.8, ease: "easeInOut" }}
+          className={`grid grid-cols-1 md:grid-cols-2 ${
             showHeader ? "lg:grid-cols-3" : "lg:grid-cols-2"
-          }`}
+          } w-full justify-center justify-items-center mt-10 gap-y-20 pb-10`}
         >
-          {(showAll ? reversedCerts : reversedCerts.slice(0, 6)).map(
-            (cert, index) => (
-              <CertificationsCard
-                key={cert.id}
-                cert={cert}
-                index={index}
-                setSelectedCertification={setSelectedCertification}
-                isVisible={isVisible}
-              />
-            )
-          )}
-        </div>
+          {[...displayedCerts].map((cert, index) => (
+            <CertificationsCard
+              key={index}
+              cert={cert}
+              index={index}
+              setSelectedCertification={setSelectedCertification}
+              isVisible={isVisible}
+            />
+          ))}
+        </motion.div>
 
-        {/* Overlay gradient + button saat showAll = false */}
-        {!showAll && (
-          <div className="absolute bottom-0 left-0 right-0 w-full h-40 bg-gradient-to-t from-background to-transparent flex items-end justify-center">
-            <motion.div
-              initial={{ scale: 1 }}
-              animate={{ scale: [1, 1.05, 1] }}
-              transition={{ duration: 2, repeat: Infinity }}
-              className="w-full flex justify-center"
-            >
-              <button
-                onClick={handleToggleShowAll}
-                className="w-full max-w-md py-4 font-orbitron font-semibold bg-gradient-primary text-primary-foreground rounded-md shadow-lg"
-              >
-                <ButtonSeeMore showAll={showAll} />
-              </button>
-            </motion.div>
-          </div>
-        )}
-
-        {/* Button saat showAll true */}
-        {showAll && (
-          <div className="w-full flex justify-center mt-12">
-            <button
-              onClick={handleToggleShowAll}
-              className="px-6 py-3 font-orbitron font-semibold bg-gradient-primary text-primary-foreground rounded-md shadow-lg"
-            >
-              <ButtonSeeMore showAll={showAll} />
-            </button>
-          </div>
-        )}
+        {/* Persistent ShowAll button */}
+        <motion.div
+          initial={{ opacity: 1, y: 0 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeInOut" }}
+          className="flex w-full justify-center items-center mt-12"
+        >
+          <motion.div
+            initial={{ scale: 1 }}
+            animate={{ scale: [1, 1.1, 1] }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+            onClick={handleShowAll}
+            className="cursor-pointer"
+          >
+            <ButtonSeeMore showAll={showAll} />
+          </motion.div>
+        </motion.div>
       </div>
 
       {/* Certification Detail Modal */}
