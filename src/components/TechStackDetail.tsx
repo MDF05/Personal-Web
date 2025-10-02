@@ -13,7 +13,6 @@ import {
 import { X, BookOpen, Target, Clock, Star, Award, Zap } from "lucide-react";
 import { TechCategoryTypes } from "@/types/technologies.types";
 import { certificationsData } from "@/data/certifications.data";
-import CertificationsCard from "./CertificationsCard";
 import Certifications from "./Certifications";
 
 interface TechStackDetailProps {
@@ -33,19 +32,23 @@ export const TechStackDetail = ({
         cert.categories.includes("web") || cert.categories.includes("frontend")
       );
     else if (category.title.toLocaleLowerCase() === "backend development")
-      return (
-        cert.categories.includes("backend") || cert.categories.includes("web")
-      );
+      return cert.categories.includes("backend");
     else if (category.title.toLocaleLowerCase() === "mobile development")
       return cert.categories.includes("mobile");
     else if (category.title.toLocaleLowerCase() === "desktop development")
       return cert.categories.includes("desktop");
     else if (category.title.toLocaleLowerCase() === "database & cloud")
       return cert.categories.includes("cloud-database");
+    else if (category.title.toLocaleLowerCase() === "machine learning & ai")
+      return cert.categories.includes("ai");
+    else if (category.title.toLocaleLowerCase() === "iot development")
+      return cert.categories.includes("iot");
   });
 
   // Handle ESC key
   useEffect(() => {
+    console.log(relatedCertifications);
+
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
     };
@@ -273,6 +276,7 @@ export const TechStackDetail = ({
             <Certifications
               isVisibleElements={true}
               showHeader={false}
+              certificationsSort={relatedCertifications}
             ></Certifications>
           </div>
 

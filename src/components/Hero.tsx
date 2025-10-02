@@ -3,6 +3,11 @@ import { Button } from "@/components/ui/button";
 import { Download, Github, Linkedin, Mail, Phone } from "lucide-react";
 import heroBackground from "@/assets/man-and-robots.gif";
 import HeroBackground from "./HeroBackground";
+import HeroImage1 from "@/assets/hero/1.png";
+import HeroImage2 from "@/assets/hero/2.png";
+import HeroImage3 from "@/assets/hero/3.png";
+import HeroImage4 from "@/assets/hero/4.png";
+import HeroImage5 from "@/assets/hero/5.png";
 
 const Hero = () => {
   const [isVisible, setIsVisible] = useState(false);

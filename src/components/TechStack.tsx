@@ -8,7 +8,6 @@ import { TechCategoryTypes } from "@/types/technologies.types";
 
 const TechStack = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const [activeCategory, setActiveCategory] = useState<number>(0);
   const [selectedCategory, setSelectedCategory] =
     useState<TechCategoryTypes>(null);
 
@@ -65,7 +64,6 @@ const TechStack = () => {
                 } ${category.isComingSoon ? "opacity-75" : ""}`}
                 style={{ transitionDelay: `${index * 200}ms` }}
                 onClick={() => {
-                  setActiveCategory(index);
                   setSelectedCategory(category);
                 }}
               >

@@ -16,6 +16,7 @@ import { CertificationComponentsProps } from "@/types/certification-components.t
 const Certifications = ({
   isVisibleElements = false,
   showHeader = true,
+  certificationsSort,
 }: CertificationComponentsProps) => {
   const [isVisible, setIsVisible] = useState<boolean>(isVisibleElements);
   const [selectedCertification, setSelectedCertification] =
@@ -36,9 +37,17 @@ const Certifications = ({
     }
   };
 
+  let certificationsDataSorted = [];
+
+  if (certificationsSort)
+    certificationsDataSorted = certificationsSort.reverse();
+  else if (!certificationsSort) {
+    certificationsDataSorted = certificationsData.reverse();
+  }
+
   const displayedCerts = showAll
-    ? certificationsData
-    : certificationsData.slice(0, visibleCount);
+    ? [...certificationsDataSorted].reverse()
+    : [...certificationsDataSorted].reverse().slice(0, visibleCount);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -70,11 +79,15 @@ const Certifications = ({
   function handleShowAll() {
     setShowAll((prev) => !prev);
 
-    window.scrollTo({
-      top: document.getElementById("certificationsGrid")?.offsetTop || 0,
-      behavior: "smooth",
-    });
+    if (showHeader) {
+      window.scrollTo({
+        top: document.getElementById("certificationsGrid")?.offsetTop || 0,
+        behavior: "smooth",
+      });
+    }
   }
+
+  if (showHeader == false && certificationsSort.length === 0) return null;
 
   return (
     <section
@@ -120,7 +133,7 @@ const Certifications = ({
               modules={[Autoplay, Pagination, Navigation]}
               onAutoplayTimeLeft={onAutoplayTimeLeft}
             >
-              {certificationsData.map((cert, index) => (
+              {[...certificationsData].map((cert, index) => (
                 <SwiperSlide
                   key={index}
                   className="grid w-[90%] justify-center justify-items-center"
@@ -173,7 +186,8 @@ const Certifications = ({
           initial={{ opacity: 1, y: 0 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeInOut" }}
-          className="flex w-full justify-center items-center mt-12"
+          className={`flex w-full justify-center items-center mt-12 absolute bg-black/30 backdrop-blur-lg border border-black/25 rounded-3xl p-8 text-white shadow-xl
+            ${showAll ? "h-[0px] bottom-[-50px]" : "h-[200px] bottom-0 "}  `}
         >
           <motion.div
             initial={{ scale: 1 }}
@@ -190,7 +204,6 @@ const Certifications = ({
           </motion.div>
         </motion.div>
       </div>
-
       {/* Certification Detail Modal */}
       {selectedCertification && (
         <CertificationDetail
