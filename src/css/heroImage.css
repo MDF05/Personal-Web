@@ -1,0 +1,19 @@
+/* Tambahkan ini ke file CSS global Anda (misal: index.css) */
+
+.scanline-overlay {
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+  background-size: 100% 4px; /* Garis tipis horizontal */
+  opacity: 0.1;
+  pointer-events: none;
+  animation: scanlines 5s linear infinite; /* Animasi bergerak lambat */
+}
+
+/* Keyframes untuk membuat garis scanline bergerak (opsional) */
+@keyframes scanlines {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 0 50px;
+  }
+}
