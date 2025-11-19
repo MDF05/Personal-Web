@@ -10,7 +10,7 @@ import {
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog";
-import { X, BookOpen, Target, Clock, Star, Award, Zap } from "lucide-react";
+import { X, BookOpen, Target, Star, Award, Zap } from "lucide-react";
 import { TechCategoryTypes } from "@/types/technologies.types";
 import { certificationsData } from "@/data/certifications.data";
 import Certifications from "./Certifications";
@@ -98,37 +98,6 @@ export const TechStackDetail = ({
             name: "Analytics Dashboard",
             status: "In Progress",
             description: "Data visualization and reporting tool",
-          },
-        ],
-
-    achievements: category.isComingSoon
-      ? [
-          {
-            title: "Learning Plan Created",
-            description: "Comprehensive IoT learning roadmap established",
-          },
-          {
-            title: "Hardware Acquired",
-            description: "Arduino and Raspberry Pi development kits obtained",
-          },
-          {
-            title: "Community Joined",
-            description: "Active in IoT developer communities and forums",
-          },
-        ]
-      : [
-          {
-            title: "Performance Expert",
-            description:
-              "Optimized applications achieving 95%+ lighthouse scores",
-          },
-          {
-            title: "Community Contributor",
-            description: "Active contributor to open-source projects",
-          },
-          {
-            title: "Best Practices Advocate",
-            description: "Mentor for clean code and architecture patterns",
           },
         ],
   };
@@ -307,23 +276,6 @@ export const TechStackDetail = ({
               ))}
             </div>
           </div>
-
-          {/* Action Buttons */}
-          {category.isComingSoon && (
-            <div className="flex gap-3">
-              <Button className="flex-1 bg-gradient-primary hover:bg-gradient-glow text-primary-foreground font-orbitron font-medium">
-                <Clock className="mr-2 h-4 w-4" />
-                Follow Progress
-              </Button>
-              <Button
-                variant="outline"
-                className="neon-border hover:bg-accent/10 font-orbitron font-medium"
-              >
-                <BookOpen className="mr-2 h-4 w-4" />
-                Learning Resources
-              </Button>
-            </div>
-          )}
         </div>
       </DialogContent>
     </Dialog>

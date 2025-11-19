@@ -17,13 +17,12 @@ import {
   Calendar,
   Users,
   Clock,
-  Star,
-  GitBranch,
-  Eye,
+  ShieldCheck,
 } from "lucide-react";
+import { ProjectTypes } from "@/types/projects.types";
 
 interface ProjectDetailProps {
-  project: any;
+  project: ProjectTypes;
   isOpen: boolean;
   onClose: () => void;
 }
@@ -46,36 +45,6 @@ export const ProjectDetail = ({
   }, [isOpen, onClose]);
 
   if (!project) return null;
-
-  // Mock additional project data for detailed view
-  const projectDetails = {
-    ...project,
-    duration: "3 months",
-    teamSize: "4 developers",
-    startDate: "2024-01-15",
-    status: "Completed",
-    metrics: {
-      stars: 42,
-      forks: 15,
-      views: 1250,
-      commits: 180,
-    },
-    features: [
-      "User Authentication & Authorization",
-      "Real-time Data Synchronization",
-      "Responsive Design for All Devices",
-      "Advanced Search & Filtering",
-      "Performance Optimization",
-      "Comprehensive Testing Suite",
-    ],
-    caseStudy:
-      "This project was built to solve the challenge of efficient team collaboration in remote work environments. The solution implements real-time synchronization, intuitive user interface, and robust security features to ensure seamless workflow management.",
-    screenshots: [
-      project.image,
-      "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=400",
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400",
-    ],
-  };
 
   return (
     <Drawer open={isOpen} onOpenChange={onClose}>
@@ -104,22 +73,24 @@ export const ProjectDetail = ({
           </DrawerDescription>
         </DrawerHeader>
 
-        <div className="flex-1 overflow-y-auto px-6 py-6">
-          <div className="max-w-4xl mx-auto space-y-8">
-            {/* Project Overview */}
-            <div className="grid md:grid-cols-2 gap-6">
-              {/* Main Image */}
-              <div className="space-y-4">
-                <div className="relative h-64 rounded-lg overflow-hidden neon-border">
+        <div className="flex-1 overflow-y-auto px-6 py-6 w-full">
+          <div className="mx-auto space-y-8 ">
+            {/* //! Project Overview */}
+            <div className="flex gap-6 max-w-fit ">
+              {/* //! Main Image */}
+              <div className="space-y-4 ">
+                <div className="relative rounded-lg overflow-hidden neon-border w-max">
                   <img
-                    src={project.image}
+                    src={project.qrCodeImage}
                     alt={project.title}
-                    className="w-full h-full object-cover"
+                    className="p-5"
+                    width={"400px"}
+                    height={"400px"}
                   />
                   <div className="absolute inset-0 bg-gradient-primary/10" />
                 </div>
 
-                {/* Action Buttons */}
+                {/* //! Action Buttons project */}
                 <div className="flex gap-3">
                   <Button
                     className="flex-1 bg-gradient-primary hover:bg-gradient-glow text-primary-foreground font-orbitron font-medium"
@@ -139,8 +110,7 @@ export const ProjectDetail = ({
                   </Button>
                 </div>
               </div>
-
-              {/* Project Info */}
+              {/* // ! Project Info */}
               <div className="space-y-4">
                 <div>
                   <h3 className="text-lg font-orbitron font-semibold text-primary mb-2">
@@ -151,16 +121,17 @@ export const ProjectDetail = ({
                   </p>
                 </div>
 
-                {/* Project Metrics */}
+                {/* // ! Project Metrics */}
                 <div className="grid grid-cols-2 gap-4">
                   <div className="flex items-center gap-2">
                     <Calendar className="h-4 w-4 text-accent" />
                     <div>
+                      {/* // ! Duration */}
                       <p className="text-xs text-muted-foreground font-rajdhani">
                         Duration
                       </p>
                       <p className="font-orbitron font-semibold text-sm">
-                        {projectDetails.duration}
+                        {project.duration}
                       </p>
                     </div>
                   </div>
@@ -168,35 +139,49 @@ export const ProjectDetail = ({
                   <div className="flex items-center gap-2">
                     <Users className="h-4 w-4 text-secondary" />
                     <div>
+                      {/* // ! team size */}
                       <p className="text-xs text-muted-foreground font-rajdhani">
                         Team Size
                       </p>
                       <p className="font-orbitron font-semibold text-sm">
-                        {projectDetails.teamSize}
+                        {project.teamSize}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Clock className="h-4 w-4 text-primary" />
+                    <div>
+                      {/* // ! start date */}
+                      <p className="text-xs text-muted-foreground font-rajdhani">
+                        Start Date
+                      </p>
+                      <p className="font-orbitron font-semibold text-sm">
+                        {project.startDate}
                       </p>
                     </div>
                   </div>
 
                   <div className="flex items-center gap-2">
-                    <Clock className="h-4 w-4 text-primary" />
+                    <ShieldCheck className="h-4 w-4 text-primary" />
                     <div>
+                      {/* // ! status */}
                       <p className="text-xs text-muted-foreground font-rajdhani">
                         Status
                       </p>
                       <p className="font-orbitron font-semibold text-sm">
-                        {projectDetails.status}
+                        {project.status}
                       </p>
                     </div>
                   </div>
-
                   <div className="flex items-center gap-2">
-                    <Star className="h-4 w-4 text-accent" />
+                    <Clock className="h-4 w-4 text-primary" />
                     <div>
+                      {/* // ! start date */}
                       <p className="text-xs text-muted-foreground font-rajdhani">
-                        GitHub Stars
+                        Deadline
                       </p>
                       <p className="font-orbitron font-semibold text-sm">
-                        {projectDetails.metrics.stars}
+                        {project.startDate}
                       </p>
                     </div>
                   </div>
@@ -230,16 +215,14 @@ export const ProjectDetail = ({
                 Key Features
               </h3>
               <div className="grid md:grid-cols-2 gap-2">
-                {projectDetails.features.map(
-                  (feature: string, index: number) => (
-                    <div key={index} className="flex items-center gap-2">
-                      <div className="w-2 h-2 rounded-full bg-gradient-primary" />
-                      <span className="text-muted-foreground font-rajdhani">
-                        {feature}
-                      </span>
-                    </div>
-                  )
-                )}
+                {project.features.map((feature: string, index: number) => (
+                  <div key={index} className="flex items-center gap-2">
+                    <div className="w-2 h-2 rounded-full bg-gradient-primary" />
+                    <span className="text-muted-foreground font-rajdhani">
+                      {feature}
+                    </span>
+                  </div>
+                ))}
               </div>
             </div>
 
@@ -249,79 +232,87 @@ export const ProjectDetail = ({
                 Case Study
               </h3>
               <p className="text-muted-foreground font-rajdhani leading-relaxed">
-                {projectDetails.caseStudy}
+                {project.caseStudy}
               </p>
             </div>
 
-            {/* GitHub Statistics */}
-            <div className="space-y-3">
-              <h3 className="text-xl font-orbitron font-semibold text-accent">
-                Project Statistics
-              </h3>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div className="text-center p-4 bg-card/20 rounded-lg neon-border">
-                  <Star className="h-6 w-6 mx-auto mb-2 text-primary" />
-                  <p className="text-xl font-orbitron font-bold gradient-text">
-                    {projectDetails.metrics.stars}
-                  </p>
-                  <p className="text-xs text-muted-foreground font-rajdhani">
-                    Stars
-                  </p>
+            {/* //! screenshots sections*/}
+            {/* 📸 Screenshots Sections */}
+            <div className="space-y-12  w-full">
+              {/* 💻 Laptop Screenshots */}
+              {project.image.LP?.length > 0 && (
+                <div className="space-y-4">
+                  <h3 className="text-xl font-orbitron font-semibold text-secondary text-center">
+                    Laptop Screenshots
+                  </h3>
+                  <div className="flex flex-wrap justify-center gap-8">
+                    {project.image.LP.map(
+                      (screenshot: string, index: number) => (
+                        <div
+                          key={`lp-${index}`}
+                          className="bg-muted/30 p-4 rounded-xl shadow-md neon-border hover:shadow-lg transition-all duration-300"
+                        >
+                          <img
+                            src={screenshot}
+                            alt={`Laptop Screenshot ${index + 1}`}
+                            className="w-[420px] h-auto object-contain rounded-lg"
+                          />
+                        </div>
+                      )
+                    )}
+                  </div>
                 </div>
+              )}
 
-                <div className="text-center p-4 bg-card/20 rounded-lg neon-border">
-                  <GitBranch className="h-6 w-6 mx-auto mb-2 text-accent" />
-                  <p className="text-xl font-orbitron font-bold gradient-text">
-                    {projectDetails.metrics.forks}
-                  </p>
-                  <p className="text-xs text-muted-foreground font-rajdhani">
-                    Forks
-                  </p>
+              {/* 📱 Tablet Screenshots */}
+              {project.image.TB?.length > 0 && (
+                <div className="space-y-4">
+                  <h3 className="text-xl font-orbitron font-semibold text-accent text-center">
+                    Tablet Screenshots
+                  </h3>
+                  <div className="flex flex-wrap justify-center gap-8">
+                    {project.image.TB.map(
+                      (screenshot: string, index: number) => (
+                        <div
+                          key={`tb-${index}`}
+                          className="bg-muted/30 p-4 rounded-xl shadow-md neon-border hover:shadow-lg transition-all duration-300"
+                        >
+                          <img
+                            src={screenshot}
+                            alt={`Tablet Screenshot ${index + 1}`}
+                            className="w-[300px] h-auto object-contain rounded-lg"
+                          />
+                        </div>
+                      )
+                    )}
+                  </div>
                 </div>
+              )}
 
-                <div className="text-center p-4 bg-card/20 rounded-lg neon-border">
-                  <Eye className="h-6 w-6 mx-auto mb-2 text-secondary" />
-                  <p className="text-xl font-orbitron font-bold gradient-text">
-                    {projectDetails.metrics.views}
-                  </p>
-                  <p className="text-xs text-muted-foreground font-rajdhani">
-                    Views
-                  </p>
+              {/* 📱 Handphone Screenshots */}
+              {project.image.HP?.length > 0 && (
+                <div className="space-y-4">
+                  <h3 className="text-xl font-orbitron font-semibold text-primary text-center">
+                    Handphone Screenshots
+                  </h3>
+                  <div className="flex flex-wrap justify-center gap-8">
+                    {project.image.HP.map(
+                      (screenshot: string, index: number) => (
+                        <div
+                          key={`hp-${index}`}
+                          className="bg-muted/30 p-4 rounded-xl shadow-md neon-border hover:shadow-lg transition-all duration-300"
+                        >
+                          <img
+                            src={screenshot}
+                            alt={`Handphone Screenshot ${index + 1}`}
+                            className="w-[220px] h-auto object-contain rounded-lg"
+                          />
+                        </div>
+                      )
+                    )}
+                  </div>
                 </div>
-
-                <div className="text-center p-4 bg-card/20 rounded-lg neon-border">
-                  <Github className="h-6 w-6 mx-auto mb-2 text-primary" />
-                  <p className="text-xl font-orbitron font-bold gradient-text">
-                    {projectDetails.metrics.commits}
-                  </p>
-                  <p className="text-xs text-muted-foreground font-rajdhani">
-                    Commits
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Additional Screenshots */}
-            <div className="space-y-3">
-              <h3 className="text-xl font-orbitron font-semibold text-secondary">
-                Screenshots
-              </h3>
-              <div className="grid md:grid-cols-3 gap-4">
-                {projectDetails.screenshots.map(
-                  (screenshot: string, index: number) => (
-                    <div
-                      key={index}
-                      className="relative h-32 rounded-lg overflow-hidden neon-border"
-                    >
-                      <img
-                        src={screenshot}
-                        alt={`Screenshot ${index + 1}`}
-                        className="w-full h-full object-cover hover:scale-110 transition-transform duration-300"
-                      />
-                    </div>
-                  )
-                )}
-              </div>
+              )}
             </div>
           </div>
         </div>

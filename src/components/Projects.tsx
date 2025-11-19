@@ -10,14 +10,15 @@ import { Autoplay, EffectCoverflow, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
-import { projects } from "../data/porjects.data";
+import { projects } from "../data/projects.data";
 import ProjectItem from "./ProjectItem";
 import { categories, getCategoryIcon } from "@/data/category-project.data";
+import { ProjectTypes } from "@/types/projects.types";
 
 const Projects = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [filter, setFilter] = useState("all");
-  const [selectedProject, setSelectedProject] = useState<any>(null);
+  const [selectedProject, setSelectedProject] = useState<ProjectTypes>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -116,6 +117,7 @@ const Projects = () => {
           >
             {filteredProjects.map((project, index) => {
               const CategoryIcon = getCategoryIcon(project.category);
+
               return (
                 <SwiperSlide key={project.id}>
                   <ProjectItem
@@ -136,7 +138,7 @@ const Projects = () => {
               variant="outline"
               className="neon-border-accent border-accent/50 text-accent hover:bg-accent hover:text-accent-foreground font-orbitron font-semibold px-8 py-4"
             >
-              View All Projects on GitHub
+              View All Projects
             </Button>
           </div>
         </div>

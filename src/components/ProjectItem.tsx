@@ -18,19 +18,41 @@ export default function ProjectItem({
   isVisible: boolean;
   setSelectedProject: React.Dispatch<React.SetStateAction<ProjectTypes | null>>;
 }) {
+  const randomLpImageIndex = Math.floor(
+    Math.random() * project.image.LP.length
+  );
+  const randomTbImageIndex = Math.floor(
+    Math.random() * project.image.TB.length
+  );
+  const randomHpImageIndex = Math.floor(
+    Math.random() * project.image.HP.length
+  );
+
   return (
     <div
       className={`group cursor-pointer overflow-hidden bg-card/30 backdrop-blur-sm neon-border hover:neon-border-primary transition-all duration-500 hover:scale-105 ${
-        isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
+        isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0 "
       } ${project.featured ? "ring-2 ring-accent/30" : ""}`}
       style={{ transitionDelay: `${index * 200}ms` }}
       onClick={() => setSelectedProject(project)}
     >
-      <div className="relative h-48 overflow-hidden">
+      <div className="relative h-48 overflow-hidden flex justify-center ">
         <img
-          src={project.image}
+          src={
+            project.category == "web"
+              ? project.image.LP[randomLpImageIndex]
+              : project.category == "mobile"
+              ? project.image.TB[randomTbImageIndex]
+              : project.image.HP[randomHpImageIndex]
+          }
           alt={project.title}
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+          className={
+            project.category == "desktop"
+              ? "w-[95%] h-[95%] transition-transform duration-500 group-hover:scale-110"
+              : project.category == "mobile"
+              ? "w-[45%] transition-transform duration-500 group-hover:scale-110"
+              : "w-[100%px] scale-125 transition-transform duration-500 group-hover:scale-15  0"
+          }
         />
         <div className="absolute inset-0 bg-gradient-primary opacity-0 group-hover:opacity-20 transition-opacity duration-300" />
 
@@ -53,7 +75,7 @@ export default function ProjectItem({
           {project.title}
         </h3>
 
-        <p className="text-muted-foreground font-rajdhani mb-4 leading-relaxed">
+        <p className="text-muted-foreground font-rajdhani mb-4 leading-relaxed line-clamp-4">
           {project.description}
         </p>
 

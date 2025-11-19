@@ -87,7 +87,7 @@ const Footer = () => {
         {/* Bottom section */}
         <div className="mt-12 pt-8 border-t border-border/50 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-muted-foreground font-rajdhani text-center md:text-left">
-            © {currentYear} Your Name. All rights reserved.
+            © {currentYear} Muhammad Dava Fahreza. All rights reserved.
           </p>
 
           <div className="flex items-center gap-2 text-muted-foreground font-rajdhani">

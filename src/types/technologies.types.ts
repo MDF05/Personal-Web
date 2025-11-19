@@ -1,4 +1,5 @@
 import { IconType } from "react-icons";
+import { achiementsTechDetail } from "./achievmentsTechDetail.types";
 
 export interface LearningRoadmap {
   phase: string;
@@ -20,4 +21,5 @@ export interface TechCategoryTypes {
   learnging?: boolean; // Flag kategori yang sedang dipelajari
   skillsMapping: { name: string; icon: IconType; learning: boolean }[];
   experience: string; // Mapping skill dari technologies
+  achievements: achiementsTechDetail;
 }

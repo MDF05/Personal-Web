@@ -1,116 +1,124 @@
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Download, Github, Linkedin, Mail, Phone } from "lucide-react";
+import { Download, FolderOpen } from "lucide-react";
 import heroBackground from "@/assets/man-and-robots.gif";
 import HeroBackground from "./HeroBackground";
 
-import "@/css/heroImage.css"; // Pastikan file CSS diimpor
-import HeroImage from "./HeroImage";
-import HeroImage1 from "@/assets/hero/1.png";
+// Pastikan file CSS diimpor
+import { HeroImage } from "./HeroImage";
 import HeroImage2 from "@/assets/hero/2.png";
-import HeroImage3 from "@/assets/hero/3.png";
-import HeroImage4 from "@/assets/hero/4.png";
+// import HeroImage3 from "@/assets/hero/3.png";
+// import HeroImage4 from "@/assets/hero/4.png";
 import HeroImage5 from "@/assets/hero/5.png";
+import SocialIcons from "./SocialIcon";
 
 // Daftar foto yang sudah Anda import di Hero.jsx
 const photos = [
-  HeroImage1, // Asumsi Anda akan mengoper ini sebagai props
+  // HeroImage1, // Asumsi Anda akan mengoper ini sebagai props
   HeroImage2,
-  HeroImage3,
-  HeroImage4,
+  // HeroImage3,
+  // HeroImage4,
   HeroImage5,
 ];
 
+// --- KOMPONEN UTAMA HERO ---
 const Hero = () => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    setIsVisible(false);
+    // Timeout dipindahkan ke useEffect untuk kontrol yang lebih baik
+    const timer = setTimeout(() => {
+      setIsVisible(true);
+    }, 1000);
+
+    return () => clearTimeout(timer);
   }, []);
 
-  setTimeout(() => {
-    setIsVisible(true);
-  }, 1000);
-
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gray-950 text-white ">
       <HeroBackground />
 
-      {/* Background Gif */}
+      {/* //! Background GIF Overlay */}
       <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-20"
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-10"
         style={{ backgroundImage: `url(${heroBackground})` }}
       />
 
-      {/* Gradient overlay */}
+      {/* Animated gradient overlay */}
       <div className="absolute inset-0 holographic-bg opacity-10" />
 
-      <div className="relative z-10 w-full h-screen grid grid-cols-1 lg:grid-cols-2 items-center px-6 lg:px-20">
-        {/* Left side (Text) */}
+      {/* Content Container (Responsive two-column layout) */}
+      <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col-reverse md:flex-row items-center justify-between min-h-[85vh] pt-10 pb-12">
+        {/* //! Right side (Image Full Body) - Ditaruh di atas di Mobile */}
+        <div className="w-full md:w-[35%] h-[100vh] flex justify-center items-center p-4">
+          <HeroImage imagePaths={photos} interval={4000} />
+        </div>
+
+        {/* //! Left side (Text Content & CTA) - Ditaruh di bawah di Mobile */}
         <div
-          className={`space-y-6 transform transition-all duration-1000 ${
-            isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
+          className={`text-center md:text-left w-full md:w-[60%] space-y-6 lg:space-y-8 p-4 transform transition-all duration-1000 ${
+            isVisible ? "translate-y-0 opacity-100" : "translate-y-0 opacity-0"
           }`}
         >
-          <div>
-            <span className="text-accent text-2xl md:text-4xl font-orbitron tracking-wider">
+          {/* Greeting */}
+          <div className="mb-4">
+            <span className="text-green-400 text-2xl md:text-3xl font-orbitron font-medium tracking-wider">
               Hello, I'm
             </span>
           </div>
 
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-orbitron font-black">
-            MUHAMMAD DAVA FAHREZA <br />
-            <span className="gradient-glow-text text-3xl md:text-5xl lg:text-6xl font-extrabold">
+          {/* Main Name & Title */}
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-orbitron font-black leading-tight">
+            <span className="block text-white mb-2">MUHAMMAD DAVA FAHREZA</span>
+            {/* Mengganti custom class dengan style inline untuk efek glow neon */}
+            <span
+              className="block text-cyan-400 text-3xl md:text-5xl lg:text-6xl font-extrabold"
+              style={{
+                textShadow:
+                  "0 0 10px rgba(0, 255, 255, 0.7), 0 0 20px rgba(0, 255, 255, 0.4)",
+              }}
+            >
               FULLSTACK Developer
             </span>
           </h1>
 
-          <p className="text-lg md:text-xl text-muted-foreground font-rajdhani leading-relaxed max-w-xl">
+          {/* Subtitle / Description */}
+          <p className="text-lg md:text-xl text-gray-400 font-rajdhani max-w-xl mx-auto md:mx-0 leading-relaxed pt-2">
             Specialized in{" "}
-            <span className="text-primary font-semibold">Frontend</span>,{" "}
-            <span className="text-primary font-semibold">Backend</span>,{" "}
-            <span className="text-primary font-semibold">Mobile</span>,{" "}
-            <span className="text-primary font-semibold">WordPress</span>,{" "}
-            <span className="text-primary font-semibold">Machine Learning</span>{" "}
-            and more. Always evolving with emerging technologies 🚀
+            <span className="text-blue-400 font-semibold">Frontend</span>,{" "}
+            <span className="text-blue-400 font-semibold">Backend</span>,{" "}
+            <span className="text-blue-400 font-semibold">Mobile</span>,{" "}
+            <span className="text-blue-400 font-semibold">WordPress</span>,{" "}
+            <span className="text-blue-400 font-semibold">
+              Machine Learning
+            </span>{" "}
+            and more. Versatile Developer Crafting Innovative Solutions and
+            Always evolving with emerging technologies 🚀
           </p>
 
           {/* Action Buttons */}
-          <div className="flex flex-wrap gap-4">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start pt-6">
             <Button
               size="lg"
-              className="neon-border bg-gradient-primary hover:bg-gradient-glow text-primary-foreground font-orbitron px-8 py-6 text-lg hover:scale-105"
+              className="w-full button-hero-download sm:w-auto bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-orbitron font-semibold px-8 py-6 text-lg transition-all duration-300 hover:scale-[1.05] rounded-xl relative overflow-hidden"
+              style={{ boxShadow: "0 0 15px rgba(59, 130, 246, 0.7)" }}
             >
               <Download className="mr-2 h-5 w-5" />
               Download CV
             </Button>
+
             <Button
               variant="outline"
               size="lg"
-              className="neon-border-accent border-accent/50 text-accent hover:bg-accent hover:text-accent-foreground font-orbitron px-8 py-6 text-lg hover:scale-105"
+              className="w-full button-hero-download sm:w-auto border-cyan-400 text-cyan-400 hover:bg-cyan-400/20 font-orbitron font-semibold px-8 py-6 text-lg transition-all duration-300 hover:scale-[1.05] rounded-xl relative overflow-hidden hover:text-white"
+              style={{ boxShadow: "0 0 10px rgba(0, 255, 255, 0.5)" }}
             >
-              <Download className="mr-2 h-5 w-5" />
+              <FolderOpen className="mr-2 h-5 w-5" />
               View Portfolio
             </Button>
           </div>
 
-          {/* Social */}
-          <div className="flex gap-6 mt-4">
-            {[Github, Linkedin, Mail, Phone].map((Icon, i) => (
-              <a
-                key={i}
-                href="#"
-                className="p-4 rounded-full neon-border bg-card/10 backdrop-blur-sm hover:bg-primary/20 transition-all hover:scale-110"
-              >
-                <Icon className="h-6 w-6 text-primary" />
-              </a>
-            ))}
-          </div>
-        </div>
-
-        {/* Right side (Image Full Body) */}
-        <div className="flex justify-center items-end h-full">
-          <HeroImage imagePaths={photos} interval={4000} />
+          <SocialIcons></SocialIcons>
         </div>
       </div>
     </section>

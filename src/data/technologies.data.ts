@@ -118,6 +118,28 @@ const tech: Omit<TechCategoryTypes, "experience" | "skillsMapping">[] = [
     ],
     isComingSoon: false,
     featured: true,
+    achievements: [
+      {
+        title: "React Frontend Certification",
+        description:
+          "Menyelesaikan sertifikasi pengembangan web frontend dengan fokus pada React.js, mencakup penguasaan hooks, state management, dan integrasi API untuk membangun aplikasi SPA yang dinamis.",
+      },
+      {
+        title: "Next.js Project Portfolio",
+        description:
+          "Mengembangkan beberapa proyek berbasis Next.js dengan pendekatan SSR dan SSG, mengoptimalkan performa dan SEO. Termasuk pembuatan website portofolio pribadi dengan desain futuristik dan UX yang interaktif.",
+      },
+      {
+        title: "UI/UX Implementation Master",
+        description:
+          "Berhasil menciptakan tampilan antarmuka modern dengan efek animasi interaktif, menggunakan kombinasi Tailwind CSS dan Framer Motion untuk pengalaman visual yang halus dan elegan.",
+      },
+      {
+        title: "Frontend Mentor Challenges",
+        description:
+          "Menyelesaikan berbagai tantangan desain dari Frontend Mentor untuk melatih keterampilan pixel-perfect layout, responsive design, dan implementasi gaya CSS tingkat lanjut.",
+      },
+    ],
   },
   {
     icon: Smartphone,
@@ -159,6 +181,28 @@ const tech: Omit<TechCategoryTypes, "experience" | "skillsMapping">[] = [
     ],
     isComingSoon: false,
     featured: true,
+    achievements: [
+      {
+        title: "React Native Beginner Project",
+        description:
+          "Membangun aplikasi To-Do List menggunakan React Native dan TypeScript melalui Expo, mencakup pengelolaan state, navigasi antar halaman, dan penyimpanan lokal menggunakan AsyncStorage.",
+      },
+      {
+        title: "Cross-Platform Development Learning",
+        description:
+          "Mendalami konsep lintas platform menggunakan Flutter dan React Native, dengan fokus pada konsistensi desain, performa rendering, dan integrasi API untuk berbagai device.",
+      },
+      {
+        title: "Expo Deployment & Optimization",
+        description:
+          "Berhasil melakukan build dan deployment proyek React Native menggunakan Expo, mempelajari struktur bundling, optimasi performa, serta pengelolaan dependensi di lingkungan mobile.",
+      },
+      {
+        title: "Mobile UI/UX Implementation",
+        description:
+          "Mengadaptasi prinsip desain responsif ke dalam layout mobile, menggunakan komponen fleksibel dan animasi untuk menciptakan pengalaman pengguna yang intuitif dan menarik.",
+      },
+    ],
   },
   {
     icon: Monitor,
@@ -199,6 +243,33 @@ const tech: Omit<TechCategoryTypes, "experience" | "skillsMapping">[] = [
       },
     ],
     isComingSoon: false,
+    achievements: [
+      {
+        title: "Electron App Prototype",
+        description:
+          "Membuat prototipe aplikasi desktop menggunakan Electron dan TypeScript, dengan integrasi API backend Node.js serta pengaturan build otomatis menggunakan Electron Forge.",
+      },
+      {
+        title: "Tauri Performance Exploration",
+        description:
+          "Mengeksplorasi framework Tauri berbasis Rust untuk membangun aplikasi desktop ringan dan cepat dengan footprint kecil, sekaligus mempelajari optimasi komunikasi antara frontend dan backend.",
+      },
+      {
+        title: "Cross-Platform Packaging",
+        description:
+          "Berhasil mengonfigurasi build aplikasi desktop lintas OS menggunakan Electron Builder dan Tauri CLI, termasuk proses signing dan installer generation untuk Windows serta macOS.",
+      },
+      {
+        title: "UI Framework Implementation",
+        description:
+          "Mengimplementasikan berbagai framework UI seperti WPF, JavaFX, dan PyQt untuk memahami pendekatan desain antarmuka pada masing-masing ekosistem bahasa dan platform.",
+      },
+      {
+        title: "Integration with System Features",
+        description:
+          "Membuat fitur integrasi native seperti notifikasi desktop, auto-start, dan penyimpanan lokal menggunakan filesystem API untuk memberikan pengalaman pengguna yang lebih kaya.",
+      },
+    ],
   },
   {
     icon: Server,
@@ -236,6 +307,33 @@ const tech: Omit<TechCategoryTypes, "experience" | "skillsMapping">[] = [
     ],
     isComingSoon: false,
     featured: true,
+    achievements: [
+      {
+        title: "RESTful API for Book Lending System",
+        description:
+          "Mengembangkan sistem backend peminjaman buku menggunakan Node.js, TypeScript, Express, PostgreSQL, dan Prisma dengan pendekatan Domain Driven Design (DDD) serta dokumentasi Swagger.",
+      },
+      {
+        title: "Retail Distribution Middleware",
+        description:
+          "Membangun arsitektur backend skala besar untuk sistem distribusi retail yang terdiri dari 4 subsistem (POS, Middleware, Queue Service, ERP) dengan PostgreSQL, Redis, dan Prisma ORM.",
+      },
+      {
+        title: "CRUD API with S3 and Redis Integration",
+        description:
+          "Membuat API CRUD dengan penyimpanan gambar di AWS S3 dan caching menggunakan Redis untuk meningkatkan performa dan efisiensi akses data.",
+      },
+      {
+        title: "Clean Architecture & Testing Implementation",
+        description:
+          "Menerapkan prinsip Clean Architecture dan melakukan unit testing menggunakan Jest untuk memastikan stabilitas serta kemudahan pemeliharaan kode.",
+      },
+      {
+        title: "Secure Authentication and Role Management",
+        description:
+          "Membangun sistem autentikasi JWT dan otorisasi berbasis role dengan praktik keamanan terbaik untuk memastikan perlindungan data pengguna.",
+      },
+    ],
   },
   {
     icon: Database,
@@ -274,6 +372,88 @@ const tech: Omit<TechCategoryTypes, "experience" | "skillsMapping">[] = [
       },
     ],
     isComingSoon: false,
+    achievements: [
+      {
+        title: "Database Design for Book Lending System",
+        description:
+          "Mendesain struktur database PostgreSQL yang efisien dan terintegrasi dengan Prisma ORM untuk sistem peminjaman buku. Mengimplementasikan relasi antar entitas dan indexing untuk performa optimal.",
+      },
+      {
+        title: "Retail Distribution System Architecture",
+        description:
+          "Membangun arsitektur database dan sistem middleware untuk aplikasi retail berskala besar menggunakan PostgreSQL, Redis, dan Prisma, dengan fokus pada skalabilitas dan integritas data.",
+      },
+      {
+        title: "Cloud Deployment with Docker and AWS",
+        description:
+          "Melakukan containerization aplikasi menggunakan Docker dan melakukan deployment ke AWS EC2 dengan konfigurasi load balancing dan environment variables yang aman.",
+      },
+      {
+        title: "Supabase & Firebase Integration",
+        description:
+          "Menggunakan Supabase dan Firebase sebagai solusi backend-as-a-service untuk autentikasi dan real-time data, mempercepat proses pengembangan aplikasi tanpa mengorbankan keamanan.",
+      },
+      {
+        title: "Redis Caching Implementation",
+        description:
+          "Mengintegrasikan Redis sebagai caching layer pada API untuk mempercepat waktu respon dan mengurangi beban pada database utama.",
+      },
+    ],
+  },
+  {
+    icon: Database,
+    title: "Database & Cloud",
+    color: "primary",
+    description:
+      "Merancang, mengelola, dan mengoptimalkan sistem database serta infrastruktur cloud untuk mendukung aplikasi berskala besar. Saya berpengalaman menggunakan database relasional seperti PostgreSQL dan MySQL, serta non-relasional seperti MongoDB dan Redis. Dengan kombinasi Docker dan platform cloud seperti AWS, Supabase, dan Vercel, saya memastikan deployment yang efisien, aman, dan mudah di-scale.",
+    technologies: [
+      ["PostgreSQL", SiPostgresql],
+      ["MySQL", SiMysql],
+      ["Oracle Database", SiOracle],
+      ["MongoDB", SiMongodb],
+      ["Redis", SiRedis],
+      ["Supabase", SiSupabase],
+      ["Firebase", SiFirebase],
+      ["AWS", SiAmazon],
+      ["Vercel", SiVercel],
+      ["Docker", SiDocker],
+    ],
+    skills: [
+      "Database Design",
+      "Query Optimization",
+      "Cloud Deployment",
+      "CI/CD Pipelines",
+      "Containerization",
+    ],
+    learningRoadmap: [
+      {
+        phase: "Current Focus",
+        items: [
+          "SQL Optimization",
+          "Docker Basics",
+          "Cloud Functions",
+          "Backup & Recovery",
+        ],
+        timeline: "Ongoing",
+      },
+      {
+        phase: "Next Quarter",
+        items: [
+          "Kubernetes Orchestration",
+          "High Availability Setup",
+          "Database Sharding & Replication",
+        ],
+        timeline: "Q1 2025",
+      },
+    ],
+    isComingSoon: false,
+    achievements: [
+      {
+        title: "Database Design for Book Lending System",
+        description:
+          "Mendesain struktur database PostgreSQL yang efisien dan terintegrasi dengan Prisma ORM untuk sistem peminjaman buku. Mengimplementasikan relasi antar entitas dan indexing untuk performa optimal.",
+      },
+    ],
   },
   {
     icon: Cpu,
@@ -312,6 +492,7 @@ const tech: Omit<TechCategoryTypes, "experience" | "skillsMapping">[] = [
       },
     ],
     isComingSoon: true,
+    achievements: [],
   },
   {
     icon: Bot,
@@ -349,6 +530,7 @@ const tech: Omit<TechCategoryTypes, "experience" | "skillsMapping">[] = [
       },
     ],
     isComingSoon: true,
+    achievements: [],
   },
 ];
 
