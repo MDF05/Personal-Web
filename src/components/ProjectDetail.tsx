@@ -86,6 +86,7 @@ export const ProjectDetail = ({
                     className="p-5"
                     width={"400px"}
                     height={"400px"}
+                    loading="lazy"
                   />
                   <div className="absolute inset-0 bg-gradient-primary/10" />
                 </div>
@@ -176,12 +177,12 @@ export const ProjectDetail = ({
                   <div className="flex items-center gap-2">
                     <Clock className="h-4 w-4 text-primary" />
                     <div>
-                      {/* // ! start date */}
+                      {/* // ! end date deadline */}
                       <p className="text-xs text-muted-foreground font-rajdhani">
                         Deadline
                       </p>
                       <p className="font-orbitron font-semibold text-sm">
-                        {project.startDate}
+                        {project.endDate}
                       </p>
                     </div>
                   </div>
@@ -256,6 +257,7 @@ export const ProjectDetail = ({
                             src={screenshot}
                             alt={`Laptop Screenshot ${index + 1}`}
                             className="w-[420px] h-auto object-contain rounded-lg"
+                            loading="lazy"
                           />
                         </div>
                       )
@@ -281,6 +283,7 @@ export const ProjectDetail = ({
                             src={screenshot}
                             alt={`Tablet Screenshot ${index + 1}`}
                             className="w-[300px] h-auto object-contain rounded-lg"
+                            loading="lazy"
                           />
                         </div>
                       )
@@ -306,6 +309,7 @@ export const ProjectDetail = ({
                             src={screenshot}
                             alt={`Handphone Screenshot ${index + 1}`}
                             className="w-[220px] h-auto object-contain rounded-lg"
+                            loading="lazy"
                           />
                         </div>
                       )

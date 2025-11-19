@@ -76,6 +76,7 @@ export const CertificationDetail = ({
                   src={certification.image}
                   alt={certification.title}
                   className="w-full h-full object-cover"
+                  loading="lazy"
                 />
                 <div className="absolute inset-0 bg-gradient-primary/20" />
 

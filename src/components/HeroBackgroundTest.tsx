@@ -69,6 +69,7 @@ export default function HeroAstronaut() {
           src={ManAndRobot}
           alt="Man and Robot"
           className="w-[320px] h-auto rounded-lg"
+          loading="lazy"
         />
       </motion.div>
 
@@ -82,6 +83,7 @@ export default function HeroAstronaut() {
           src={HelloRobot}
           alt="Hello Robot"
           className="w-[340px] h-auto rounded-lg"
+          loading="lazy"
         />
       </motion.div>
 

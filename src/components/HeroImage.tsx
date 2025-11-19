@@ -50,6 +50,7 @@ export const HeroImage = ({ imagePaths, interval = 4500 }) => {
         // Transisi opacity di sini untuk fade-in foto baru
         className={`w-full h-full object-cover rounded-lg transition-opacity duration-300`}
         style={{ opacity: isTransitioning ? 0 : 1 }}
+        loading="lazy"
       />
 
       {/* Overlay Glitch/Efek Transisi */}

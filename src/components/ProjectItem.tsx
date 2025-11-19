@@ -53,6 +53,7 @@ export default function ProjectItem({
               ? "w-[45%] transition-transform duration-500 group-hover:scale-110"
               : "w-[100%px] scale-125 transition-transform duration-500 group-hover:scale-15  0"
           }
+          loading="lazy"
         />
         <div className="absolute inset-0 bg-gradient-primary opacity-0 group-hover:opacity-20 transition-opacity duration-300" />
 

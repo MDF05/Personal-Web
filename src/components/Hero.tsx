@@ -60,19 +60,18 @@ const Hero = () => {
             isVisible ? "translate-y-0 opacity-100" : "translate-y-0 opacity-0"
           }`}
         >
-          {/* Greeting */}
+          {/* // ! Greeting */}
           <div className="mb-4">
             <span className="text-green-400 text-2xl md:text-3xl font-orbitron font-medium tracking-wider">
               Hello, I'm
             </span>
           </div>
 
-          {/* Main Name & Title */}
+          {/* // ! Main Name & Title */}
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-orbitron font-black leading-tight">
             <span className="block text-white mb-2">MUHAMMAD DAVA FAHREZA</span>
-            {/* Mengganti custom class dengan style inline untuk efek glow neon */}
             <span
-              className="block text-cyan-400 text-3xl md:text-5xl lg:text-6xl font-extrabold"
+              className="block text-cyan-400 text-3xl md:text-4xl lg:text-5xl font-extrabold"
               style={{
                 textShadow:
                   "0 0 10px rgba(0, 255, 255, 0.7), 0 0 20px rgba(0, 255, 255, 0.4)",
@@ -82,8 +81,8 @@ const Hero = () => {
             </span>
           </h1>
 
-          {/* Subtitle / Description */}
-          <p className="text-lg md:text-xl text-gray-400 font-rajdhani max-w-xl mx-auto md:mx-0 leading-relaxed pt-2">
+          {/* // !  Subtitle / Description  penjelasan diri deskripsi diri */}
+          <p className="text-xl md:text-2xl text-gray-400 font-rajdhani max-w-xl mx-auto md:mx-0 leading-relaxed pt-2">
             Specialized in{" "}
             <span className="text-blue-400 font-semibold">Frontend</span>,{" "}
             <span className="text-blue-400 font-semibold">Backend</span>,{" "}
@@ -96,7 +95,7 @@ const Hero = () => {
             Always evolving with emerging technologies 🚀
           </p>
 
-          {/* Action Buttons */}
+          {/* // ! Action Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start pt-6">
             <Button
               size="lg"

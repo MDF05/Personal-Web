@@ -1,4 +1,3 @@
-import { Search } from "lucide-react";
 import { ProjectTypes } from "@/types/projects.types";
 import {
   eventHubLpImages,
@@ -43,6 +42,12 @@ import {
   coffeshopQrcode,
   coffeshopTbImages,
 } from "@/utils/extract-folder-image/coffeshop.images";
+import {
+  weddingInvitation1HPImages,
+  weddingInvitation1LpImages,
+  weddingInvitation1Qrcode,
+  weddingInvitation1TbImages,
+} from "@/utils/extract-folder-image/weddingInvitation1.images";
 
 export const projects: ProjectTypes[] = [
   {
@@ -180,41 +185,56 @@ export const projects: ProjectTypes[] = [
     startDate: "03-March-2025",
     endDate: "03-April-2025",
     status: "Completed",
-    featured: false,
+    featured: true,
     qrCodeImage: dumbmerchQrcode,
   },
-  // {
-  //   id: 4,
-  //   title: "Event Hub",
-  //   description:
-  //     "EventHub built with Next.js, TypeScript, Prisma ORM, and PostgreSQL, offers a modern and reliable platform for managing and attending events. Users can browse upcoming events, purchase tickets, and receive confirmations securely. Admins can manage events via an intuitive dashboard.",
-  //   category: "web",
-  //   technologies: [
-  //     "Next.js",
-  //     "TypeScript",
-  //     "Prisma ORM",
-  //     "PostgreSQL",
-  //     "Shadcn UI",
-  //   ],
-  //   image: { TB: eventHubTbImages, LP: eventHubLpImages, HP: eventHubHpImages },
-  //   github: "#",
-  //   demo: "https://event-hub-jet-three.vercel.app/",
-  //   caseStudy:
-  //     "Created to streamline event management with automation, modern UI, and secure payment systems for both organizers and participants.",
-  //   features: [
-  //     "User Authentication",
-  //     "Event management dashboard",
-  //     "Secure ticket purchase system",
-  //     "Responsive UI",
-  //     "Database CRUD with Prisma",
-  //   ],
-  //   duration: "1 month",
-  //   teamSize: "1 developer",
-  //   startDate: "2024-01-15",
-  //   status: "Completed",
-  //   featured: true,
-  //   qrCodeImage : "",
-  // },
+  {
+    id: 3,
+    title: "Wedding Invitation",
+    description:
+      "Wedding invitation website built with Vue.js 3, featuring dynamic guest management, real-time countdown, interactive gallery, Islamic religious sections, and comprehensive wedding information. The website offers personalized invitations with CSV-based guest data, beautiful animations, and mobile-responsive design.",
+    category: "web",
+    technologies: [
+      "Vue.js",
+      "Vue Router",
+      "Pinia",
+      "Tailwind CSS",
+      "GSAP",
+      "JavaScript",
+      "PostCSS",
+      "Vite",
+    ],
+    image: {
+      TB: weddingInvitation1TbImages,
+      LP: weddingInvitation1LpImages,
+      HP: weddingInvitation1HPImages,
+    },
+    github: "https://github.com/MDF05/wedding-invitation-1.git",
+    demo: "https://wedding-invitation-1-five.vercel.app/",
+    caseStudy:
+      "This wedding invitation website was created to provide a modern digital solution for wedding invitations. It solves the problem of traditional paper invitations by offering personalized digital experiences for each guest, easy RSVP management, and beautiful presentation with interactive features.",
+    features: [
+      "Dynamic guest invitation system",
+      "Real-time wedding countdown",
+      "Interactive photo gallery",
+      "Islamic religious sections",
+      "Google Maps integration",
+      "Digital donation with QR codes",
+      "Live comments system",
+      "Event agenda timeline",
+      "Music player with consent",
+      "Live streaming section",
+      "Mobile responsive design",
+      "PWA capabilities",
+    ],
+    duration: "2 weeks",
+    teamSize: "1 developer",
+    startDate: "14-November-2025",
+    endDate: "28-November-2025",
+    status: "Completed",
+    featured: true,
+    qrCodeImage: weddingInvitation1Qrcode,
+  },
   {
     id: 5,
     title: "BookLib",
@@ -245,7 +265,7 @@ export const projects: ProjectTypes[] = [
     startDate: "05-April-2025",
     endDate: "05-May-2025",
     status: "Completed",
-    featured: false,
+    featured: true,
     qrCodeImage: bookLibQrcode,
   },
   {
@@ -275,7 +295,7 @@ export const projects: ProjectTypes[] = [
     startDate: "10-May-2025",
     endDate: "10-June-2025",
     status: "Completed",
-    featured: false,
+    featured: true,
     qrCodeImage: mdfCatatanQrcode,
   },
   // {
@@ -304,7 +324,7 @@ export const projects: ProjectTypes[] = [
   //   teamSize: "1 developer",
   //   startDate: "2023-12-20",
   //   status: "Completed",
-  //   featured: false,
+  //   featured: true,
   // },
   // {
   //   id: 8,
@@ -333,7 +353,7 @@ export const projects: ProjectTypes[] = [
   //   teamSize: "1 developer",
   //   startDate: "2024-06-01",
   //   status: "Completed",
-  //   featured: false,
+  //   featured: true,
   // },
   {
     id: 8,
@@ -376,10 +396,10 @@ export const projects: ProjectTypes[] = [
     ],
     duration: "1 month",
     teamSize: "1 developer",
-    startDate: "2024-06-01",
-    endDate: "2024-07-01",
+    startDate: "2024-June-01",
+    endDate: "2024-July-01",
     status: "Completed",
-    featured: false,
+    featured: true,
     qrCodeImage: circleQrcode,
   },
   {
@@ -425,7 +445,7 @@ export const projects: ProjectTypes[] = [
     startDate: "20-June-2025",
     endDate: "20-Juli-2025",
     status: "Completed",
-    featured: false,
+    featured: true,
     qrCodeImage: coffeshopQrcode,
   },
 ];
