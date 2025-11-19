@@ -13,7 +13,9 @@ import {
   Printer,
   Mail,
   Sparkles,
+  Code2,
 } from "lucide-react";
+import { IconType } from "react-icons";
 
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -31,14 +33,15 @@ import { Switch } from "@/components/ui/switcth";
 import { Label } from "@/components/ui/lable";
 import { useToast } from "@/hooks/use-toast";
 import { projects } from "@/data/projects.data";
+import { techCategories } from "@/data/technologies.data";
 import type { ProjectTypes } from "@/types/projects.types";
 import { cn } from "@/lib/utils";
 
-import profileImage from "@/assets/hero/1.png";
+import profileImage from "@/assets/hero/2.png";
 import "@/css/projects-page.css";
 
 type ProjectSlug = (typeof projects)[number]["slug"];
-type PdfTarget = "active" | "all" | ProjectSlug;
+type PdfTarget = "active" | "all" | "hero" | ProjectSlug;
 
 type PdfOptions = {
   layout: "portrait" | "landscape";
@@ -80,6 +83,7 @@ const ProjectsShowcase = () => {
   const [pdfProgress, setPdfProgress] = useState("");
 
   const sectionRefs = useRef<Record<string, HTMLDivElement | null>>({});
+  const heroRef = useRef<HTMLElement | null>(null);
   const binaryParticles = useMemo(
     () =>
       Array.from({ length: 36 }, (_, index) => ({
@@ -139,60 +143,6 @@ const ProjectsShowcase = () => {
   }, []);
 
   /**
-   * Sync state whenever route param changes (e.g. user visits /projects/circle)
-   */
-  useEffect(() => {
-    if (!projectSlug) {
-      return;
-    }
-
-    if (!projectSlugs.includes(projectSlug)) {
-      navigate("/projects", { replace: true });
-      toast({
-        title: "Project tidak ditemukan",
-        description: "Kami mengarahkan Anda ke daftar project.",
-      });
-      return;
-    }
-
-    if (projectSlug !== activeSlug) {
-      setActiveSlug(projectSlug as ProjectSlug);
-      setTimeout(() => scrollToSlug(projectSlug, false), 300);
-    }
-  }, [projectSlug, projectSlugs, activeSlug, navigate, toast]);
-
-  /**
-   * IntersectionObserver to detect active project and update URL
-   */
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-
-        if (!visible) return;
-        const slug = visible.target.getAttribute("data-slug") as ProjectSlug;
-        if (slug && slug !== activeSlug) {
-          setActiveSlug(slug);
-          updateRouteForSlug(slug);
-        }
-      },
-      {
-        threshold: 0.5,
-        rootMargin: "-20% 0px -20% 0px",
-      }
-    );
-
-    projectSlugs.forEach((slug) => {
-      const ref = sectionRefs.current[slug];
-      if (ref) observer.observe(ref);
-    });
-
-    return () => observer.disconnect();
-  }, [activeSlug, projectSlugs]);
-
-  /**
    * Helpers
    */
   const scrollToSlug = useCallback((slug: string, smooth = true) => {
@@ -211,6 +161,126 @@ const ProjectsShowcase = () => {
     },
     [location.pathname, navigate]
   );
+
+  /**
+   * Sync state whenever route param changes (e.g. user visits /projects/circle)
+   */
+  useEffect(() => {
+    if (!projectSlug) {
+      return;
+    }
+
+    if (!projectSlugs.includes(projectSlug)) {
+      navigate("/projects", { replace: true });
+      toast({
+        title: "Project tidak ditemukan",
+        description: "Kami mengarahkan Anda ke daftar project.",
+      });
+      return;
+    }
+
+    if (projectSlug !== activeSlug) {
+      setActiveSlug(projectSlug as ProjectSlug);
+    }
+  }, [projectSlug, projectSlugs, activeSlug, navigate, toast]);
+
+  /**
+   * Scroll to project when activeSlug changes and we have a projectSlug in URL
+   * This ensures scrolling happens after DOM is ready
+   */
+  useEffect(() => {
+    if (!projectSlug || projectSlug !== activeSlug) {
+      return;
+    }
+
+    // Wait for DOM to be ready before scrolling
+    const scrollToProject = () => {
+      const node = sectionRefs.current[activeSlug];
+      if (node) {
+        const offset = 120;
+        const top = node.getBoundingClientRect().top + window.scrollY - offset;
+        window.scrollTo({ top, behavior: "auto" });
+      }
+    };
+
+    // Try immediately
+    scrollToProject();
+
+    // Retry after a short delay to ensure DOM is fully rendered
+    const timeoutId = setTimeout(scrollToProject, 100);
+    const timeoutId2 = setTimeout(scrollToProject, 300);
+
+    return () => {
+      clearTimeout(timeoutId);
+      clearTimeout(timeoutId2);
+    };
+  }, [projectSlug, activeSlug]);
+
+  /**
+   * IntersectionObserver to detect active project and update URL
+   */
+  useEffect(() => {
+    // Don't update URL if we're currently scrolling to a specific project
+    let isScrolling = false;
+    let scrollTimeoutId: NodeJS.Timeout | null = null;
+
+    const setScrolling = (value: boolean) => {
+      isScrolling = value;
+      if (scrollTimeoutId) {
+        clearTimeout(scrollTimeoutId);
+      }
+      if (value) {
+        scrollTimeoutId = setTimeout(() => {
+          isScrolling = false;
+        }, 1000);
+      }
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (isScrolling) return;
+
+        // Find the most visible entry
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => {
+            // Sort by intersection ratio, then by position (top to bottom)
+            if (Math.abs(b.intersectionRatio - a.intersectionRatio) > 0.1) {
+              return b.intersectionRatio - a.intersectionRatio;
+            }
+            return a.boundingClientRect.top - b.boundingClientRect.top;
+          })[0];
+
+        if (!visible) return;
+        const slug = visible.target.getAttribute("data-slug") as ProjectSlug;
+        if (slug && slug !== activeSlug) {
+          setActiveSlug(slug);
+          updateRouteForSlug(slug);
+        }
+      },
+      {
+        threshold: [0.1, 0.3, 0.5, 0.7],
+        rootMargin: "-20% 0px -20% 0px",
+      }
+    );
+
+    projectSlugs.forEach((slug) => {
+      const ref = sectionRefs.current[slug];
+      if (ref) observer.observe(ref);
+    });
+
+    // Set scrolling flag when URL changes to prevent observer from interfering
+    if (projectSlug && projectSlug === activeSlug) {
+      setScrolling(true);
+    }
+
+    return () => {
+      if (scrollTimeoutId) {
+        clearTimeout(scrollTimeoutId);
+      }
+      observer.disconnect();
+    };
+  }, [activeSlug, projectSlugs, updateRouteForSlug, projectSlug]);
 
   const handleShare = useCallback(
     async (slug?: string) => {
@@ -254,17 +324,44 @@ const ProjectsShowcase = () => {
       options: PdfOptions,
       { silent }: { silent?: boolean } = {}
     ) => {
-      const elements: HTMLElement[] =
-        target === "all"
-          ? projectSlugs
-              .map((slug) => sectionRefs.current[slug])
-              .filter(Boolean) as HTMLElement[]
-          : (() => {
-              const slug =
-                target === "active" ? activeSlug : (target as ProjectSlug);
-              const node = sectionRefs.current[slug];
-              return node ? [node] : [];
-            })();
+      let elements: HTMLElement[] = [];
+
+      if (target === "hero") {
+        // Only hero section
+        if (!heroRef.current) {
+          toast({
+            title: "Bagian tidak ditemukan",
+            description: "Hero section tidak ditemukan.",
+            variant: "destructive",
+          });
+          return;
+        }
+        elements = [heroRef.current];
+      } else if (target === "all") {
+        // Hero + all projects
+        const projectElements = projectSlugs
+          .map((slug) => sectionRefs.current[slug])
+          .filter(Boolean) as HTMLElement[];
+        if (heroRef.current) {
+          elements = [heroRef.current, ...projectElements];
+        } else {
+          elements = projectElements;
+        }
+      } else {
+        // Single project (active or specific)
+        const slug =
+          target === "active" ? activeSlug : (target as ProjectSlug);
+        const node = sectionRefs.current[slug];
+        if (!node) {
+          toast({
+            title: "Bagian tidak ditemukan",
+            description: "Coba gulir hingga project tampil penuh.",
+            variant: "destructive",
+          });
+          return;
+        }
+        elements = [node];
+      }
 
       if (!elements.length) {
         toast({
@@ -284,7 +381,13 @@ const ProjectsShowcase = () => {
         for (let index = 0; index < elements.length; index += 1) {
           setPdfProgress(`Rendering ${index + 1}/${elements.length}...`);
           const element = elements[index];
-          const teardown = applyPdfVisibility(element, options);
+          
+          // Only apply visibility options for project cards, not hero
+          const isHero = element === heroRef.current;
+          const teardown = isHero
+            ? () => {}
+            : applyPdfVisibility(element, options);
+          
           const canvas = await html2canvas(element, {
             scale: options.quality === "high" ? 2 : 1.2,
             useCORS: true,
@@ -305,6 +408,8 @@ const ProjectsShowcase = () => {
         const filename =
           target === "all"
             ? "mdf-all-projects.pdf"
+            : target === "hero"
+            ? "mdf-hero-intro.pdf"
             : `${(
                 target === "active" ? activeSlug : (target as string)
               ).replace(/-/g, "_")}.pdf`;
@@ -363,7 +468,7 @@ const ProjectsShowcase = () => {
         style={{ width: `${scrollProgress}%` }}
       />
 
-      <section className="cyber-hero relative print-hidden">
+      <section ref={heroRef} className="cyber-hero relative print-hidden">
         <div className="binary-stream">
           {binaryParticles.map((particle) => (
             <span
@@ -391,7 +496,7 @@ const ProjectsShowcase = () => {
               className="font-orbitron text-4xl font-bold text-white md:text-5xl lg:text-6xl"
             >
               <span className="bg-gradient-to-r from-cyan-400 via-purple-400 to-emerald-300 bg-clip-text text-transparent">
-                Muhammad Dava Fahreza
+                Muhammad Dava Fahreza 
               </span>
             </motion.h1>
 
@@ -496,9 +601,20 @@ const ProjectsShowcase = () => {
                   <p className="text-xs uppercase tracking-[0.5em] text-white/50">
                     Tech Stack
                   </p>
-                  <p className="text-base text-white">
-                    {activeProject.technologies.slice(0, 4).join(" • ")}
-                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {activeProject.technologies.slice(0, 4).map((tech) => {
+                      const TechIcon = getTechIcon(tech);
+                      return (
+                        <span
+                          key={tech}
+                          className="inline-flex items-center gap-1 text-xs text-white/80"
+                        >
+                          {TechIcon && <TechIcon className="h-3.5 w-3.5" />}
+                          {tech}
+                        </span>
+                      );
+                    })}
+                  </div>
                 </div>
               </div>
             </div>
@@ -810,14 +926,18 @@ const ProjectInfoPanel = ({
         TECHNOLOGIES
       </p>
       <div className="mt-3 flex flex-wrap gap-2">
-        {project.technologies.map((tech) => (
-          <span
-            key={tech}
-            className="rounded-full border border-cyan-400/40 px-3 py-1 text-xs text-cyan-100"
-          >
-            {tech}
-          </span>
-        ))}
+        {project.technologies.map((tech) => {
+          const TechIcon = getTechIcon(tech);
+          return (
+            <span
+              key={tech}
+              className="inline-flex items-center gap-1.5 rounded-full border border-cyan-400/40 px-3 py-1 text-xs text-cyan-100"
+            >
+              {TechIcon && <TechIcon className="h-3.5 w-3.5" />}
+              {tech}
+            </span>
+          );
+        })}
       </div>
     </div>
 
@@ -964,6 +1084,9 @@ const PdfCustomizationDialog = ({
             <option value="all" className="bg-[#0b0b12] text-white">
               Semua project
             </option>
+            <option value="hero" className="bg-[#0b0b12] text-white">
+              Hero Intro (Halaman Pertama)
+            </option>
             {projects.map((project) => (
               <option
                 key={project.slug}
@@ -1075,6 +1198,21 @@ const ToggleRow = ({
     <Switch checked={checked} onCheckedChange={onCheckedChange} />
   </div>
 );
+
+/**
+ * Get icon for technology name
+ */
+const getTechIcon = (techName: string): IconType | null => {
+  for (const category of techCategories) {
+    const tech = category.technologies.find(
+      ([name]) => name.toLowerCase() === techName.toLowerCase()
+    );
+    if (tech) {
+      return tech[1];
+    }
+  }
+  return null;
+};
 
 const applyPdfVisibility = (element: HTMLElement, options: PdfOptions) => {
   const toggledNodes: Array<{ node: HTMLElement; previousDisplay: string }> =
