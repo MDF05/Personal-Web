@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 // import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
@@ -134,11 +135,12 @@ const Projects = () => {
 
           <div className="text-center mt-12">
             <Button
+              asChild
               size="lg"
               variant="outline"
               className="neon-border-accent border-accent/50 text-accent hover:bg-accent hover:text-accent-foreground font-orbitron font-semibold px-8 py-4"
             >
-              View All Projects
+              <Link to="/projects">View All Projects</Link>
             </Button>
           </div>
         </div>

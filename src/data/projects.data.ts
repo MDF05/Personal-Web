@@ -52,6 +52,7 @@ import {
 export const projects: ProjectTypes[] = [
   {
     id: 1,
+    slug: "event-hub",
     title: "Event Hub",
     description:
       "EventHub built with Next.js, TypeScript, Prisma ORM, and PostgreSQL, offers a modern and reliable platform for managing and attending events. Users can effortlessly browse upcoming events, purchase tickets, and receive confirmations securely. The admin dashboard enables organizers to efficiently create, update, and manage events, ensuring a smooth experience for both users and event administrators",
@@ -93,6 +94,7 @@ export const projects: ProjectTypes[] = [
   },
   {
     id: 2,
+    slug: "waysbean",
     title: "WaysBean",
     description:
       "WaysBean built with React TypeScript and Express TypeScript, providing a fast and seamless online shopping experience. Customers can easily browse products, add items to their cart, and securely complete the checkout process. The platform includes secure payment options to ensure safety during transactions.",
@@ -140,6 +142,7 @@ export const projects: ProjectTypes[] = [
   },
   {
     id: 3,
+    slug: "dumbmerch",
     title: "DumbMerch",
     description:
       "Developed a dynamic e-commerce platform using React and Express, providing a fast and seamless online shopping experience. Customers can browse, add items to their cart, and complete secure checkouts. Includes messaging for customer inquiries and complaints, improving both satisfaction and engagement.",
@@ -189,7 +192,8 @@ export const projects: ProjectTypes[] = [
     qrCodeImage: dumbmerchQrcode,
   },
   {
-    id: 3,
+    id: 4,
+    slug: "wedding-invitation",
     title: "Wedding Invitation",
     description:
       "Wedding invitation website built with Vue.js 3, featuring dynamic guest management, real-time countdown, interactive gallery, Islamic religious sections, and comprehensive wedding information. The website offers personalized invitations with CSV-based guest data, beautiful animations, and mobile-responsive design.",
@@ -237,6 +241,7 @@ export const projects: ProjectTypes[] = [
   },
   {
     id: 5,
+    slug: "booklib",
     title: "BookLib",
     description:
       "BookLib is a modern library management system built with Laravel, MySQL, Tailwind CSS, Composer, and Artisan. It allows users to browse books, borrow, and leave feedback, while admins can manage inventory and track loans in real-time.",
@@ -270,6 +275,7 @@ export const projects: ProjectTypes[] = [
   },
   {
     id: 6,
+    slug: "mdf-catatan-app",
     title: "MDF-Catatan-App",
     description:
       "MDF-Catatan is a simple and intuitive note-taking mobile application built with React Native. Users can add, edit, archive, and delete notes with a clean interface and smooth user experience.",
@@ -357,6 +363,7 @@ export const projects: ProjectTypes[] = [
   // },
   {
     id: 8,
+    slug: "circle",
     title: "Circle",
     description:
       "A web application built with React TypeScript and Express TypeScript, seems like threads and twitter, make allowing users to register, create posts, upload images, and edit profile photos. ",
@@ -404,6 +411,7 @@ export const projects: ProjectTypes[] = [
   },
   {
     id: 9,
+    slug: "coffeeshop",
     title: "CoffeeShop",
     description:
       "A mobile application built with React Native and Express TypeScript designed to simplify the process of purchasing and selling coffee drinks. The app enables users to browse menus, place orders, and make payments, while helping store owners manage sales data, transactions, and inventory efficiently through a connected backend system.",

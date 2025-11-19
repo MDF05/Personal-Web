@@ -6,6 +6,7 @@ interface listImageProjects {
 
 export interface ProjectTypes {
   id: number;
+  slug: string;
   title: string;
   description: string;
   category: "web" | "mobile" | "desktop";
