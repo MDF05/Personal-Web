@@ -58,6 +58,10 @@
   border-radius: 999px;
 }
 
+.cyber-hero .tech-frame {
+  border-radius: 1.5rem;
+}
+
 .hologram-icon {
   position: relative;
   isolation: isolate;

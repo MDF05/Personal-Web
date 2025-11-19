@@ -62,6 +62,15 @@ import {
   SiGoogle,
   SiCodesandbox,
   SiSass,
+  SiCloudinary,
+  SiPrisma,
+  SiSocketdotio,
+  SiVite,
+  SiLaravel,
+  SiPhp,
+  SiPostcss,
+  SiStripe,
+  SiPaypal,
 } from "react-icons/si";
 
 import { TechCategoryTypes } from "@/types/technologies.types";

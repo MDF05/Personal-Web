@@ -16,6 +16,21 @@ import {
   Code2,
 } from "lucide-react";
 import { IconType } from "react-icons";
+import {
+  SiReact,
+  SiExpress,
+  SiChakraui,
+  SiCloudinary,
+  SiPrisma,
+  SiSocketdotio,
+  SiVuedotjs,
+  SiPostcss,
+  SiVite,
+  SiLaravel,
+  SiPhp,
+  SiTailwindcss,
+  SiStripe,
+} from "react-icons/si";
 
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -81,6 +96,7 @@ const ProjectsShowcase = () => {
   const [pdfOptions, setPdfOptions] = useState<PdfOptions>(defaultPdfOptions);
   const [isGeneratingPdf, setIsGeneratingPdf] = useState(false);
   const [pdfProgress, setPdfProgress] = useState("");
+  const [isObserverDisabled, setIsObserverDisabled] = useState(false);
 
   const sectionRefs = useRef<Record<string, HTMLDivElement | null>>({});
   const heroRef = useRef<HTMLElement | null>(null);
@@ -193,6 +209,9 @@ const ProjectsShowcase = () => {
       return;
     }
 
+    // Disable observer temporarily to prevent interference
+    setIsObserverDisabled(true);
+
     // Wait for DOM to be ready before scrolling
     const scrollToProject = () => {
       const node = sectionRefs.current[activeSlug];
@@ -209,10 +228,16 @@ const ProjectsShowcase = () => {
     // Retry after a short delay to ensure DOM is fully rendered
     const timeoutId = setTimeout(scrollToProject, 100);
     const timeoutId2 = setTimeout(scrollToProject, 300);
+    
+    // Re-enable observer after 2 seconds
+    const enableObserverTimeout = setTimeout(() => {
+      setIsObserverDisabled(false);
+    }, 2000);
 
     return () => {
       clearTimeout(timeoutId);
       clearTimeout(timeoutId2);
+      clearTimeout(enableObserverTimeout);
     };
   }, [projectSlug, activeSlug]);
 
@@ -220,26 +245,13 @@ const ProjectsShowcase = () => {
    * IntersectionObserver to detect active project and update URL
    */
   useEffect(() => {
-    // Don't update URL if we're currently scrolling to a specific project
-    let isScrolling = false;
-    let scrollTimeoutId: NodeJS.Timeout | null = null;
-
-    const setScrolling = (value: boolean) => {
-      isScrolling = value;
-      if (scrollTimeoutId) {
-        clearTimeout(scrollTimeoutId);
-      }
-      if (value) {
-        scrollTimeoutId = setTimeout(() => {
-          isScrolling = false;
-        }, 1000);
-      }
-    };
+    // Don't run observer if it's disabled (e.g., during initial scroll)
+    if (isObserverDisabled) {
+      return;
+    }
 
     const observer = new IntersectionObserver(
       (entries) => {
-        if (isScrolling) return;
-
         // Find the most visible entry
         const visible = entries
           .filter((entry) => entry.isIntersecting)
@@ -269,18 +281,10 @@ const ProjectsShowcase = () => {
       if (ref) observer.observe(ref);
     });
 
-    // Set scrolling flag when URL changes to prevent observer from interfering
-    if (projectSlug && projectSlug === activeSlug) {
-      setScrolling(true);
-    }
-
     return () => {
-      if (scrollTimeoutId) {
-        clearTimeout(scrollTimeoutId);
-      }
       observer.disconnect();
     };
-  }, [activeSlug, projectSlugs, updateRouteForSlug, projectSlug]);
+  }, [activeSlug, projectSlugs, updateRouteForSlug, isObserverDisabled]);
 
   const handleShare = useCallback(
     async (slug?: string) => {
@@ -468,7 +472,7 @@ const ProjectsShowcase = () => {
         style={{ width: `${scrollProgress}%` }}
       />
 
-      <section ref={heroRef} className="cyber-hero relative print-hidden">
+      <section ref={heroRef} className="cyber-hero relative">
         <div className="binary-stream">
           {binaryParticles.map((particle) => (
             <span
@@ -484,141 +488,138 @@ const ProjectsShowcase = () => {
           ))}
         </div>
 
-        <div className="relative z-10 mx-auto flex max-w-6xl flex-col items-center gap-12 px-6 py-24 lg:flex-row lg:items-stretch">
-          <div className="w-full space-y-8 text-center lg:text-left">
-            <p className="text-sm uppercase tracking-[1.2em] text-cyan-400 drop-shadow-[0_0_12px_rgba(0,243,255,0.9)]">
-              MY PORTFOLIO
-            </p>
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className="font-orbitron text-4xl font-bold text-white md:text-5xl lg:text-6xl"
-            >
-              <span className="bg-gradient-to-r from-cyan-400 via-purple-400 to-emerald-300 bg-clip-text text-transparent">
-                Muhammad Dava Fahreza 
-              </span>
-            </motion.h1>
-
-            <div className="text-lg font-semibold text-cyan-200">
-              <span>{typedHeroText}</span>
-              <span
-                className={cn(
-                  "ml-2 text-cyan-400",
-                  cursorVisible ? "opacity-100" : "opacity-0"
-                )}
+        <div className="relative z-10 mx-auto max-w-7xl px-4 py-12">
+          <div className="project-card rounded-3xl border px-6 py-10 shadow-xl">
+            <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:gap-12">
+              {/* Profile Image Section - Setengah Badan Full */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.8 }}
+                className="flex-shrink-0"
               >
-                |
-              </span>
-            </div>
+                <div className="tech-frame mx-auto h-80 w-64 overflow-hidden rounded-2xl lg:h-96 lg:w-72">
+                  <img
+                    src={profileImage}
+                    alt="Muhammad Dava Fahreza"
+                    className="h-full w-full object-cover object-top"
+                  />
+                </div>
+              </motion.div>
 
-            <div className="text-base text-white/80">
-              <a
-                href="mailto:mdavafahreza05@gmail.com"
-                className="inline-flex items-center gap-2 text-cyan-300 transition hover:text-cyan-100"
-              >
-                <Mail className="h-5 w-5" />
-                mdavafahreza05@gmail.com
-              </a>
-            </div>
+              {/* Content Section */}
+              <div className="flex-1 space-y-6 text-center lg:text-left">
+                <div>
+                  <p className="text-sm uppercase tracking-[1.2em] text-cyan-400 drop-shadow-[0_0_12px_rgba(0,243,255,0.9)]">
+                    MY PORTFOLIO
+                  </p>
+                  <motion.h1
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8 }}
+                    className="mt-2 font-orbitron text-4xl font-bold text-white md:text-5xl lg:text-6xl"
+                  >
+                    <span className="bg-gradient-to-r from-cyan-400 via-purple-400 to-emerald-300 bg-clip-text text-transparent">
+                      Muhammad Dava Fahreza
+                    </span>
+                  </motion.h1>
+                  <div className="mt-2 text-lg font-semibold text-cyan-200">
+                    <span>{typedHeroText}</span>
+                    <span
+                      className={cn(
+                        "ml-2 text-cyan-400",
+                        cursorVisible ? "opacity-100" : "opacity-0"
+                      )}
+                    >
+                      |
+                    </span>
+                  </div>
+                </div>
 
-            <div className="flex flex-wrap items-center justify-center gap-4 lg:justify-start">
-              {heroSocials.map((social) => (
-                <a
-                  key={social.label}
-                  href={social.href}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="hologram-icon rounded-full border border-white/10 px-4 py-2 text-sm text-white/80 transition hover:text-white"
-                >
-                  {social.label}
-                </a>
-              ))}
-            </div>
+                <div className="text-base text-white/80">
+                  <a
+                    href="mailto:mdavafahreza05@gmail.com"
+                    className="inline-flex items-center gap-2 text-cyan-300 transition hover:text-cyan-100"
+                  >
+                    <Mail className="h-5 w-5" />
+                    mdavafahreza05@gmail.com
+                  </a>
+                </div>
 
-            <div className="flex flex-wrap items-center justify-center gap-4 lg:justify-start">
-              <Button
-                onClick={handleHeroPrint}
-                size="lg"
-                className="magnetic-button bg-cyan-500 text-black shadow-[0_0_30px_rgba(0,243,255,0.5)] hover:bg-cyan-400"
-              >
-                <Printer className="h-5 w-5" />
-                CETAK PDF
-              </Button>
-              <Button
-                variant="outline"
-                size="lg"
-                className="magnetic-button border-cyan-500/40 text-cyan-300 hover:bg-cyan-500/10"
-                onClick={() => handleShare()}
-              >
-                <Share2 className="h-5 w-5" />
-                Bagikan
-              </Button>
-              <Button
-                variant="ghost"
-                size="lg"
-                className="magnetic-button text-purple-300 hover:bg-purple-500/10"
-                onClick={() => {
-                  setPdfTarget("active");
-                  setPdfModalOpen(true);
-                }}
-              >
-                <FileDown className="h-5 w-5" />
-                Custom PDF
-              </Button>
-            </div>
-          </div>
+                <div className="flex flex-wrap items-center justify-center gap-3 lg:justify-start">
+                  {heroSocials.map((social) => (
+                    <a
+                      key={social.label}
+                      href={social.href}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="hologram-icon rounded-full border border-white/10 px-4 py-2 text-sm text-white/80 transition hover:text-white"
+                    >
+                      {social.label}
+                    </a>
+                  ))}
+                </div>
 
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8 }}
-            className="glass-panel relative w-full max-w-md rounded-3xl p-8"
-          >
-            <div className="flex flex-col items-center gap-6">
-              <div className="tech-frame h-52 w-52 overflow-hidden">
-                <img
-                  src={profileImage}
-                  alt="Muhammad Dava Fahreza"
-                  className="h-full w-full rounded-full object-cover"
-                />
-              </div>
-              <div className="text-center text-sm uppercase tracking-[0.8em] text-white/60">
-                Mode Futuristik
-              </div>
-              <div className="grid w-full gap-4 text-white/80">
+                {/* Active Project Info */}
                 <div className="rounded-xl border border-white/10 bg-white/5 p-4">
                   <p className="text-xs text-white/50">Proyek Aktif</p>
-                  <p className="text-2xl font-semibold text-white">
+                  <p className="text-xl font-semibold text-white">
                     {activeProject.title}
                   </p>
                   <p className="text-sm text-cyan-200">
                     {projectSlugs.indexOf(activeProject.slug) + 1} /{" "}
                     {projects.length}
                   </p>
-                </div>
-                <div className="rounded-xl border border-white/10 bg-white/5 p-4">
-                  <p className="text-xs uppercase tracking-[0.5em] text-white/50">
-                    Tech Stack
-                  </p>
-                  <div className="flex flex-wrap gap-2">
+                  <div className="mt-3 flex flex-wrap gap-2">
                     {activeProject.technologies.slice(0, 4).map((tech) => {
                       const TechIcon = getTechIcon(tech);
                       return (
                         <span
                           key={tech}
-                          className="inline-flex items-center gap-1 text-xs text-white/80"
+                          className="inline-flex items-center gap-1 rounded-full border border-cyan-400/40 px-2 py-1 text-xs text-cyan-100"
                         >
-                          {TechIcon && <TechIcon className="h-3.5 w-3.5" />}
+                          {TechIcon && <TechIcon className="h-3 w-3" />}
                           {tech}
                         </span>
                       );
                     })}
                   </div>
                 </div>
+
+                <div className="flex flex-wrap items-center justify-center gap-3 lg:justify-start">
+                  <Button
+                    onClick={handleHeroPrint}
+                    size="lg"
+                    className="magnetic-button bg-cyan-500 text-black shadow-[0_0_30px_rgba(0,243,255,0.5)] hover:bg-cyan-400"
+                  >
+                    <Printer className="h-5 w-5" />
+                    CETAK PDF
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="lg"
+                    className="magnetic-button border-cyan-500/40 text-cyan-300 hover:bg-cyan-500/10"
+                    onClick={() => handleShare()}
+                  >
+                    <Share2 className="h-5 w-5" />
+                    Bagikan
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="lg"
+                    className="magnetic-button text-purple-300 hover:bg-purple-500/10"
+                    onClick={() => {
+                      setPdfTarget("active");
+                      setPdfModalOpen(true);
+                    }}
+                  >
+                    <FileDown className="h-5 w-5" />
+                    Custom PDF
+                  </Button>
+                </div>
               </div>
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
 
@@ -1203,15 +1204,52 @@ const ToggleRow = ({
  * Get icon for technology name
  */
 const getTechIcon = (techName: string): IconType | null => {
+  // Normalize tech name for matching
+  const normalizedName = techName.toLowerCase().trim();
+  
+  // First, try to find in techCategories
   for (const category of techCategories) {
     const tech = category.technologies.find(
-      ([name]) => name.toLowerCase() === techName.toLowerCase()
+      ([name]) => name.toLowerCase() === normalizedName
     );
     if (tech) {
       return tech[1];
     }
   }
-  return null;
+  
+  // Additional mappings for technologies not in categories
+  const additionalMappings: Record<string, IconType> = {
+    "react.js": SiReact,
+    "react": SiReact,
+    "express.js": SiExpress,
+    "express": SiExpress,
+    "chakra-ui": SiChakraui,
+    "chakra ui": SiChakraui,
+    "cloudinary": SiCloudinary,
+    "midtrans": SiStripe, // Fallback, no direct icon
+    "midtarns": SiStripe, // Typo fix
+    "prisma": SiPrisma,
+    "shadcn ui": SiReact, // Fallback
+    "shadcn": SiReact,
+    "socket.io": SiSocketdotio,
+    "socketio": SiSocketdotio,
+    "vue router": SiVuedotjs,
+    "vue-router": SiVuedotjs,
+    "pinia": SiVuedotjs, // Vue state management
+    "gsap": Code2, // Fallback, no direct icon
+    "postcss": SiPostcss,
+    "vite": SiVite,
+    "laravel": SiLaravel,
+    "composer": SiPhp, // PHP package manager
+    "artisan": SiLaravel, // Laravel CLI
+    "rest api": Code2, // Fallback to generic code icon
+    "restapi": Code2,
+    "api": Code2,
+    "tailwind": SiTailwindcss,
+    "tailwind css": SiTailwindcss,
+  };
+  
+  return additionalMappings[normalizedName] || null;
 };
 
 const applyPdfVisibility = (element: HTMLElement, options: PdfOptions) => {
