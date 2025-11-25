@@ -3,7 +3,7 @@ import type { ProjectTypes } from "@/types/projects.types";
 import { cn } from "@/lib/utils";
 import { DeviceShowcase } from "./DeviceShowcase";
 import { ActionBar } from "./ActionBar";
-import { ProjectInfoPanel } from "./ProjectInfoPanel";
+import { InfoRow, ProjectInfoPanel } from "./ProjectInfoPanel";
 
 type ProjectCardProps = {
   project: ProjectTypes;
@@ -32,16 +32,26 @@ export const ProjectCard = ({
       data-slug={project.slug}
       ref={registerRef}
       className={cn(
-        "project-card rounded-3xl border px-6 py-10 shadow-xl transition-all bg-red-500",
+        "project-card rounded-3xl border px-6 py-4 shadow-xl transition-all bg-red-500",
         isActive ? "border-cyan-500/60 shadow-cyan-500/20" : "border-white/5"
       )}
     >
-      <header className="mb-8 flex flex-wrap items-center justify-between gap-4 ">
+      <header className="mb-3 flex flex-wrap items-center justify-between gap-4 ">
         <div>
-          <p className="text-xs uppercase tracking-[0.4em] text-white/50">
-            #{project.id.toString().padStart(2, "0")}
-          </p>
-          <h2 className="text-3xl font-bold text-white">{project.title}</h2>
+          <div className=" text-3xl flex gap-2">
+            <p className=" uppercase tracking-[0.4em] text-white/50">
+              #{project.id.toString().padStart(2, "0")}
+            </p>
+            <h2 className=" font-bold text-white">{project.title}</h2>
+          </div>
+          <a
+            href={`${project.demo}`}
+            target="_blank"
+            rel="noreferrer"
+            className="hover:text-white text-cyan-200 "
+          >
+            {`${project.demo}`}
+          </a>
         </div>
         <Badge
           className={cn(
@@ -59,13 +69,13 @@ export const ProjectCard = ({
         <DeviceShowcase project={project} />
 
         <div className="flex flex-col gap-6 ">
-          <ActionBar
+          {/* <ActionBar
             onDownload={onDownloadQuick}
             onGenerate={onGenerate}
             onShare={onShare}
             onCopy={onCopyLink}
             demoUrl={project.demo}
-          />
+          /> */}
 
           <ProjectInfoPanel project={project} primaryColor={primaryColor} />
         </div>

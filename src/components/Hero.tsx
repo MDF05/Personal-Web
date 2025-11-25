@@ -106,15 +106,16 @@ const Hero = () => {
               Download CV
             </Button>
 
-            <Button
-              variant="outline"
-              size="lg"
-              className="w-full button-hero-download sm:w-auto border-cyan-400 text-cyan-400 hover:bg-cyan-400/20 font-orbitron font-semibold px-8 py-6 text-lg transition-all duration-300 hover:scale-[1.05] rounded-xl relative overflow-hidden hover:text-white"
+            <a
+              href="/portfolio"
+              // variant="outline"
+              // size="lg"
+              className="w-full flex button-hero-download sm:w-auto border-cyan-400 text-cyan-400 hover:bg-cyan-400/20 font-orbitron font-semibold text-lg transition-all duration-300 hover:scale-[1.05] rounded-xl relative overflow-hidden hover:text-white items-center px-5"
               style={{ boxShadow: "0 0 10px rgba(0, 255, 255, 0.5)" }}
             >
               <FolderOpen className="mr-2 h-5 w-5" />
               View Portfolio
-            </Button>
+            </a>
           </div>
 
           <SocialIcons></SocialIcons>

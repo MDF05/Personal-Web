@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import type { ProjectTypes } from "@/types/projects.types";
 import { getTechIcon } from "../utils/getTechIcon";
+import { profileData } from "@/data/profile.data";
 
 type ProjectInfoPanelProps = {
   project: ProjectTypes;
   primaryColor: string;
 };
 
-const InfoRow = ({
+export const InfoRow = ({
   label,
   value,
   colorClass,
@@ -47,40 +48,35 @@ export const TypewriterText = ({ text }: { text: string }) => {
 
 export const ProjectInfoPanel = ({
   project,
-  primaryColor,
-}: ProjectInfoPanelProps) => (
+}: // primaryColor,
+ProjectInfoPanelProps) => (
   <div className="space-y-6 rounded-2xl border border-white/10 bg-white/5 p-6 text-white/80">
     {/* // ! detail project */}
-    <div className="grid gap-4 text-sm">
+    <div className="grid gap-4 text-sm grid-cols-[30%_50%] justify-between ">
       <InfoRow
-        label="Timeline"
-        value={project.duration}
-        colorClass={primaryColor}
+        label="Kategori"
+        value={project.category.toUpperCase()}
+        colorClass={"text-emerald-300"}
       />
       <InfoRow
         label="Start Date"
         value={project.startDate}
-        colorClass={primaryColor}
-      />
-      <InfoRow
-        label="Deadline"
-        value={project.endDate}
-        colorClass={primaryColor}
-      />
-      <InfoRow
-        label="Kategori"
-        value={project.category.toUpperCase()}
-        colorClass={primaryColor}
+        colorClass={"text-emerald-300"}
       />
       <InfoRow
         label="Team"
         value={project.teamSize}
-        colorClass={primaryColor}
+        colorClass={"text-emerald-300"}
+      />
+      <InfoRow
+        label="Deadline"
+        value={project.endDate}
+        colorClass={"text-emerald-300"}
       />
     </div>
 
     {/* // ! features */}
-    <div data-section="features">
+    {/* <div data-section="features">
       <p className="text-xs uppercase tracking-[0.5em] text-white/40">
         Features
       </p>
@@ -94,6 +90,13 @@ export const ProjectInfoPanel = ({
           </div>
         ))}
       </div>
+    </div> */}
+
+    <div data-section="description" className="space-y-2">
+      <p className="text-xs uppercase tracking-[0.5em] text-white/40">
+        Description
+      </p>
+      <TypewriterText text={project.description} />
     </div>
 
     {/* // ! techonologies */}
@@ -117,41 +120,38 @@ export const ProjectInfoPanel = ({
       </div>
     </div>
 
-    {/* // ! github link */}
     <div>
-      <p className="text-xs uppercase tracking-[0.5em] text-white/40">
-        github link
-      </p>
-      <a
-        href={project.demo}
-        target="_blank"
-        rel="noreferrer"
-        className="hover:text-white text-cyan-200 "
-      >
-        {project.github}
-      </a>
-    </div>
-
-    {/* // ! qr-code image */}
-    <div>
-      <p className="text-xs uppercase tracking-[0.5em] text-white/40">
-        live demo
-      </p>
-      <a
-        href={project.demo}
-        target="_blank"
-        rel="noreferrer"
-        className="hover:text-white text-cyan-200 "
-      >
-        {project.demo}
-      </a>
-      <div className="qr-shell mt-4 w-full rounded-2xl border border-white/10 p-4">
-        <p className="mb-2 text-xs text-white/40">SCAN ME</p>
-        <img
-          src={project.qrCodeImage}
-          alt={`${project.title} QR`}
-          className="mx-auto h-52 w-full object-contain"
-        />
+      <div className="flex justify-center items-center gap-1">
+        <p className="text-xs uppercase tracking-[0.5em] text-white/40">
+          source code :
+        </p>
+        <a
+          href={`${project.github}`}
+          target="_blank"
+          rel="noreferrer"
+          className="hover:text-white text-cyan-200 "
+        >
+          {project.github}
+        </a>
+      </div>
+      <div className="flex justify-center items-center gap-1">
+        <p className="text-xs uppercase tracking-[0.5em] text-white/40">
+          more about this project :
+        </p>
+        <a
+          href={`${profileData.currentUrl}/${project.title
+            .split(" ")
+            .join("-")
+            .toLocaleLowerCase()}`}
+          target="_blank"
+          rel="noreferrer"
+          className="hover:text-white text-cyan-200 "
+        >
+          {`${profileData.currentUrl}/project/${project.title
+            .split(" ")
+            .join("-")
+            .toLocaleLowerCase()}`}
+        </a>
       </div>
     </div>
 

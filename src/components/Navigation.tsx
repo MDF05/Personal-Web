@@ -12,6 +12,7 @@ const Navigation = () => {
     { name: "Projects", href: "/#projects" },
     { name: "Certificates", href: "/#certificates" },
     { name: "Contact", href: "/#contact" },
+    { name: "portfolio", href: "/portfolio" },
   ];
 
   useEffect(() => {
@@ -42,7 +43,6 @@ const Navigation = () => {
               &lt;MDF/&gt;
             </a>
           </div>
-
           {/* Desktop Navigation */}
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-8">
@@ -58,7 +58,6 @@ const Navigation = () => {
               ))}
             </div>
           </div>
-
           {/* Mobile menu button */}
           <div className="md:hidden">
             <Button

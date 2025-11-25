@@ -41,7 +41,7 @@ const ProjectsShowcase = () => {
   const handleShare = useCallback(
     async (slug?: string) => {
       const targetSlug = slug ?? activeSlug;
-      const url = `${window.location.origin}/projects/${targetSlug}`;
+      const url = `${window.location.origin}/portfolio/${targetSlug}`;
       try {
         if (navigator.share) {
           await navigator.share({
@@ -64,7 +64,7 @@ const ProjectsShowcase = () => {
 
   const handleCopyLink = useCallback(
     async (slug: string) => {
-      const url = `${window.location.origin}/projects/${slug}`;
+      const url = `${window.location.origin}/portfolio/${slug}`;
       await navigator.clipboard.writeText(url);
       toast({
         title: "Tautan disalin",

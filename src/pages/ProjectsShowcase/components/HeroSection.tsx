@@ -68,9 +68,6 @@ export const HeroSection = ({
     []
   );
 
-  const currentUrl =
-    typeof window !== "undefined" ? window.location.origin : "";
-
   const thisYear = new Date().getFullYear();
 
   return (
@@ -133,10 +130,10 @@ export const HeroSection = ({
               </p>
 
               <a
-                href={currentUrl}
+                href={profileData.currentUrl}
                 className="flex w-full items-center justify-center text-center text-xl tracking-[.5em] text-gray-400 drop-shadow-[0_0_12px_rgba(0,243,255,0.9)]"
               >
-                {currentUrl}
+                {profileData.currentUrl}
               </a>
             </div>
 

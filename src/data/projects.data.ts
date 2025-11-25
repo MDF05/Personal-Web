@@ -193,8 +193,8 @@ export const projects: ProjectTypes[] = [
   },
   {
     id: 4,
-    slug: "wedding-invitation",
-    title: "Wedding Invitation",
+    slug: "wedding-invitation-1",
+    title: "Wedding Invitation-1",
     description:
       "Wedding invitation website built with Vue.js 3, featuring dynamic guest management, real-time countdown, interactive gallery, Islamic religious sections, and comprehensive wedding information. The website offers personalized invitations with CSV-based guest data, beautiful animations, and mobile-responsive design.",
     category: "web",

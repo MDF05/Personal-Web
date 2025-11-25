@@ -3,6 +3,9 @@ export interface SocialLink {
   url: string;
 }
 
+export const currentUrl =
+  typeof window !== "undefined" ? window.location.origin : "";
+
 export interface ProfileData {
   name: string;
   title: string;
@@ -10,6 +13,7 @@ export interface ProfileData {
   description: string;
   skills: string[];
   experience: Date;
+  currentUrl: string;
 
   // optional data
   height?: string;
@@ -31,6 +35,7 @@ export const profileData: ProfileData = {
     "Specialized in Frontend, Backend, Mobile, WordPress, Machine Learning and more. Versatile Developer Crafting Innovative Solutions and Always evolving with emerging technologies 🚀",
   skills: ["Frontend", "Backend", "Mobile", "WordPress", "Machine Learning"],
   experience: new Date("2024-01-01"),
+  currentUrl,
 
   //! Optional data
   height: "173 cm",

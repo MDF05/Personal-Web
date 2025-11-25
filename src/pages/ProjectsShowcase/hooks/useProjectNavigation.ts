@@ -32,7 +32,7 @@ export const useProjectNavigation = () => {
 
   const updateRouteForSlug = useCallback(
     (slug: string) => {
-      const targetPath = `/projects/${slug}`;
+      const targetPath = `/portfolio/${slug}`;
       if (location.pathname === targetPath) return;
       navigate(targetPath, { replace: false });
     },
@@ -141,4 +141,3 @@ export const useProjectNavigation = () => {
     projectSlugs,
   };
 };
-
