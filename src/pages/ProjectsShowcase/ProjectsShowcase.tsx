@@ -62,18 +62,6 @@ const ProjectsShowcase = () => {
     [activeProject.title, activeSlug, toast]
   );
 
-  const handleCopyLink = useCallback(
-    async (slug: string) => {
-      const url = `${window.location.origin}/portfolio/${slug}`;
-      await navigator.clipboard.writeText(url);
-      toast({
-        title: "Tautan disalin",
-        description: url,
-      });
-    },
-    [toast]
-  );
-
   const handleHeroPrint = () => {
     window.print();
   };
@@ -126,15 +114,6 @@ const ProjectsShowcase = () => {
               registerRef={(node) => {
                 sectionRefs.current[project.slug] = node;
               }}
-              onCopyLink={() => handleCopyLink(project.slug)}
-              onShare={() => handleShare(project.slug)}
-              onGenerate={() => {
-                setPdfTarget(project.slug);
-                setPdfModalOpen(true);
-              }}
-              onDownloadQuick={() =>
-                generatePdf(project.slug, pdfOptions, { silent: true })
-              }
             />
           ))}
         </div>

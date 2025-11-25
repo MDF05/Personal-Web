@@ -2,27 +2,18 @@ import { Badge } from "@/components/ui/badge";
 import type { ProjectTypes } from "@/types/projects.types";
 import { cn } from "@/lib/utils";
 import { DeviceShowcase } from "./DeviceShowcase";
-import { ActionBar } from "./ActionBar";
-import { InfoRow, ProjectInfoPanel } from "./ProjectInfoPanel";
+import { ProjectInfoPanel } from "./ProjectInfoPanel";
 
 type ProjectCardProps = {
   project: ProjectTypes;
   isActive: boolean;
   registerRef: (node: HTMLDivElement | null) => void;
-  onShare: () => void;
-  onCopyLink: () => void;
-  onGenerate: () => void;
-  onDownloadQuick: () => void;
 };
 
 export const ProjectCard = ({
   project,
   isActive,
   registerRef,
-  onCopyLink,
-  onShare,
-  onGenerate,
-  onDownloadQuick,
 }: ProjectCardProps) => {
   const primaryColor = isActive ? "text-cyan-300" : "text-white/60";
 
@@ -69,14 +60,6 @@ export const ProjectCard = ({
         <DeviceShowcase project={project} />
 
         <div className="flex flex-col gap-6 ">
-          {/* <ActionBar
-            onDownload={onDownloadQuick}
-            onGenerate={onGenerate}
-            onShare={onShare}
-            onCopy={onCopyLink}
-            demoUrl={project.demo}
-          /> */}
-
           <ProjectInfoPanel project={project} primaryColor={primaryColor} />
         </div>
       </div>

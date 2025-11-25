@@ -72,7 +72,7 @@ export const HeroSection = ({
 
   return (
     <section ref={heroRef} className="cyber-hero relative pt-24 w-screen">
-      {/* Row 7: Action Buttons */}
+      {/* // ! Row 7: Action Buttons */}
       <div className="flex flex-wrap items-center justify-center gap-3 w-full ">
         <Button
           onClick={onPrint}
@@ -103,7 +103,7 @@ export const HeroSection = ({
         </Button>
       </div>
 
-      {/* Binary Particles */}
+      {/* // ! Binary Particles */}
       <div className="binary-stream">
         {binaryParticles.map((particle) => (
           <span
@@ -119,11 +119,11 @@ export const HeroSection = ({
         ))}
       </div>
 
-      {/* MAIN WRAPPER */}
+      {/* // ! MAIN WRAPPER */}
       <div className="relative z-10 mx-auto py-12 flex w-full justify-center">
         <div className="project-card rounded-3xl border px-6 py-10 shadow-xl ">
           <div className="flex flex-col items-center gap-8">
-            {/* Header */}
+            {/* // ! Header */}
             <div className="text-center flex w-full flex-col items-center justify-center gap-2">
               <p className="flex w-full items-center justify-center text-center text-3xl uppercase tracking-[1.2em] text-cyan-400 drop-shadow-[0_0_12px_rgba(0,243,255,0.9)]">
                 MY PORTFOLIO
@@ -137,7 +137,7 @@ export const HeroSection = ({
               </a>
             </div>
 
-            {/* Profile Image */}
+            {/* //! Profile Image */}
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -153,7 +153,7 @@ export const HeroSection = ({
               </div>
             </motion.div>
 
-            {/* Name + Role */}
+            {/* // ! Name + Role */}
             <div className="text-center">
               <motion.h1
                 initial={{ opacity: 0, y: 20 }}
@@ -179,13 +179,14 @@ export const HeroSection = ({
               </div>
             </div>
 
-            {/* Description */}
+            {/* // ! Description */}
             <div className="w-full mt-6 glow-box rounded-2xl border border-white/10 bg-white/5 px-6 py-6 backdrop-blur-md shadow-[0_0_25px_rgba(0,255,255,0.12)]">
               <p className="text-xl  text-pretty text-justify text-white/90 leading-relaxed tracking-wide drop-shadow-[0_0_6px_rgba(0,255,255,0.4)]">
                 “ {profileData.description} ”
               </p>
             </div>
 
+            {/* // ! experience */}
             <div className="mt-8 grid grid-cols-4 gap-5 text-gray-300 text-lg">
               <div className="p-5 rounded-xl bg-white/5 border border-white/10 backdrop-blur-md shadow-md">
                 <p className="text-cyan-300 font-semibold text-xl">
@@ -194,6 +195,7 @@ export const HeroSection = ({
                 <p className="text-gray-400 text-sm">Of experience</p>
               </div>
 
+              {/* // ! total projects */}
               <div className="p-5 rounded-xl bg-white/5 border border-white/10 backdrop-blur-md shadow-md">
                 <p className="text-cyan-300 font-semibold text-xl">
                   {totalProjects}
@@ -201,6 +203,7 @@ export const HeroSection = ({
                 <p className="text-gray-400 text-sm">Completed projects</p>
               </div>
 
+              {/* // ! total Certificates */}
               <div className="p-5 rounded-xl bg-white/5 border border-white/10 backdrop-blur-md shadow-md">
                 <p className="text-cyan-300 font-semibold text-xl">
                   {certificationsData.length - 4}++
@@ -208,6 +211,7 @@ export const HeroSection = ({
                 <p className="text-gray-400 text-sm">Certificates earned</p>
               </div>
 
+              {/* // ! total Tech */}
               <div className="p-5 rounded-xl bg-white/5 border border-white/10 backdrop-blur-md shadow-md">
                 <p className="text-cyan-300 font-semibold text-xl">
                   {alltechUsed.length - 20}++
@@ -216,7 +220,7 @@ export const HeroSection = ({
               </div>
             </div>
 
-            {/* Social Icons */}
+            {/* // ! Social Icons */}
             <div className="flex items-center justify-center gap-4 mt-6">
               {Object.entries(profileData.socialMedia ?? {}).map(
                 ([key, social]) => (

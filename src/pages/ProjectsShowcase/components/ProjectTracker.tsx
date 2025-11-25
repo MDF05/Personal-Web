@@ -1,4 +1,3 @@
-import { projects } from "@/data/projects.data";
 import type { ProjectTypes } from "@/types/projects.types";
 import { cn } from "@/lib/utils";
 import type { ProjectSlug } from "../types";
@@ -42,4 +41,3 @@ export const ProjectTracker = ({
     </aside>
   );
 };
-

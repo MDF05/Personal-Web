@@ -75,23 +75,6 @@ ProjectInfoPanelProps) => (
       />
     </div>
 
-    {/* // ! features */}
-    {/* <div data-section="features">
-      <p className="text-xs uppercase tracking-[0.5em] text-white/40">
-        Features
-      </p>
-      <div className="mt-2 grid gap-2 text-sm text-white/80">
-        {project.features.map((feature) => (
-          <div
-            key={feature}
-            className="rounded-lg border border-white/10 bg-white/5 px-3 py-2"
-          >
-            {feature}
-          </div>
-        ))}
-      </div>
-    </div> */}
-
     <div data-section="description" className="space-y-2">
       <p className="text-xs uppercase tracking-[0.5em] text-white/40">
         Description
@@ -139,7 +122,7 @@ ProjectInfoPanelProps) => (
           more about this project :
         </p>
         <a
-          href={`${profileData.currentUrl}/${project.title
+          href={`${profileData.currentUrl}/project/${project.title
             .split(" ")
             .join("-")
             .toLocaleLowerCase()}`}
@@ -154,29 +137,5 @@ ProjectInfoPanelProps) => (
         </a>
       </div>
     </div>
-
-    {/* // ! action link */}
-    {/* <div
-      className="flex flex-wrap gap-3 text-cyan-200 justify-center text-2xl"
-      data-section="links"
-    >
-      <a
-        href={project.demo}
-        target="_blank"
-        rel="noreferrer"
-        className="hover:text-white"
-      >
-        Live Demo
-      </a>
-      <span className="text-white/30">•</span>
-      <a
-        href={project.github}
-        target="_blank"
-        rel="noreferrer"
-        className="hover:text-white"
-      >
-        GitHub
-      </a>
-    </div> */}
   </div>
 );
