@@ -87,7 +87,7 @@ const ProjectsShowcase = () => {
   const activeSlugIndex = projectSlugs.indexOf(activeSlug);
 
   return (
-    <div className="projects-page min-h-screen">
+    <div className="projects-page min-h-screen w-full">
       <Navigation />
       <div
         className="scroll-progress-bar"
@@ -109,7 +109,7 @@ const ProjectsShowcase = () => {
         heroRef={heroRef}
       />
 
-      <div className="mx-auto flex max-w-7xl flex-col gap-10 px-4 pb-24 pt-12 lg:flex-row">
+      <div className="flex w-full flex-col pb-24 pt-12 ">
         <ProjectTracker
           projects={projects}
           activeSlug={activeSlug}
@@ -117,7 +117,7 @@ const ProjectsShowcase = () => {
           onProjectClick={handleProjectClick}
         />
 
-        <div className="flex-1 space-y-16">
+        <div className="flex-1 space-y-16 grid w-full justify-center ">
           {projects.map((project) => (
             <ProjectCard
               key={project.slug}
@@ -161,4 +161,3 @@ const ProjectsShowcase = () => {
 };
 
 export default ProjectsShowcase;
-

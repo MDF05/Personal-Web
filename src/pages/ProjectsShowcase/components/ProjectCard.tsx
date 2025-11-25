@@ -32,11 +32,11 @@ export const ProjectCard = ({
       data-slug={project.slug}
       ref={registerRef}
       className={cn(
-        "project-card rounded-3xl border px-6 py-10 shadow-xl transition-all",
+        "project-card rounded-3xl border px-6 py-10 shadow-xl transition-all bg-red-500",
         isActive ? "border-cyan-500/60 shadow-cyan-500/20" : "border-white/5"
       )}
     >
-      <header className="mb-8 flex flex-wrap items-center justify-between gap-4">
+      <header className="mb-8 flex flex-wrap items-center justify-between gap-4 ">
         <div>
           <p className="text-xs uppercase tracking-[0.4em] text-white/50">
             #{project.id.toString().padStart(2, "0")}
@@ -55,10 +55,10 @@ export const ProjectCard = ({
         </Badge>
       </header>
 
-      <div className="grid gap-8 lg:grid-cols-[1.4fr_1fr]">
+      <div className="grid gap-8 ">
         <DeviceShowcase project={project} />
 
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-6 ">
           <ActionBar
             onDownload={onDownloadQuick}
             onGenerate={onGenerate}
@@ -73,4 +73,3 @@ export const ProjectCard = ({
     </article>
   );
 };
-

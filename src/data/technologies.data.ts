@@ -62,21 +62,13 @@ import {
   SiGoogle,
   SiCodesandbox,
   SiSass,
-  SiCloudinary,
-  SiPrisma,
-  SiSocketdotio,
-  SiVite,
-  SiLaravel,
-  SiPhp,
-  SiPostcss,
-  SiStripe,
-  SiPaypal,
 } from "react-icons/si";
 
 import { TechCategoryTypes } from "@/types/technologies.types";
 import { IconType } from "react-icons";
+import { getDate } from "date-fns";
 
-const tech: Omit<TechCategoryTypes, "experience" | "skillsMapping">[] = [
+export const tech: Omit<TechCategoryTypes, "experience" | "skillsMapping">[] = [
   {
     icon: Globe,
     title: "Frontend Development",
@@ -545,7 +537,7 @@ const tech: Omit<TechCategoryTypes, "experience" | "skillsMapping">[] = [
 
 export const techCategories: TechCategoryTypes[] = tech.map((category) => ({
   ...category,
-  experience: "1+ years",
+  experience: `${getDate(new Date()) - 2024}`,
   skillsMapping: category.technologies.map(
     ([label, Icon]: [string, IconType]) => ({
       name: label,
@@ -554,3 +546,10 @@ export const techCategories: TechCategoryTypes[] = tech.map((category) => ({
     })
   ),
 }));
+
+export const alltechUsed: string[] = techCategories.flatMap((category) =>
+  category.technologies.map(([label]) => {
+    console.log(label);
+    return label;
+  })
+);

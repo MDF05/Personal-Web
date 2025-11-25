@@ -1,11 +1,39 @@
-import { useMemo, useRef } from "react";
+import { useMemo } from "react";
 import { motion } from "framer-motion";
-import { Mail, Printer, Share2, FileDown } from "lucide-react";
+import { Printer, Share2, FileDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { projects } from "@/data/projects.data";
 import { cn } from "@/lib/utils";
-import { getTechIcon } from "../utils/getTechIcon";
 import profileImage from "@/assets/hero/5.png";
+import { profileData } from "@/data/profile.data";
+import { certificationsData } from "@/data/certifications.data";
+import { alltechUsed } from "@/data/technologies.data";
+
+import {
+  AiFillGithub,
+  AiFillLinkedin,
+  AiOutlineMail,
+  AiFillInstagram,
+  AiFillFacebook,
+  AiFillYoutube,
+  AiFillTwitterCircle,
+} from "react-icons/ai";
+import { FaTiktok, FaWhatsapp, FaTelegram, FaDiscord } from "react-icons/fa";
+
+const icons: Record<string, JSX.Element> = {
+  email: <AiOutlineMail size={28} />,
+  whatsapp: <FaWhatsapp size={28} />,
+  linkedin: <AiFillLinkedin size={28} />,
+  github: <AiFillGithub size={28} />,
+  instagram: <AiFillInstagram size={28} />,
+  facebook: <AiFillFacebook size={28} />,
+  youtube: <AiFillYoutube size={28} />,
+  tiktok: <FaTiktok size={28} />,
+  twitterOrX: <AiFillTwitterCircle size={28} />,
+  telegram: <FaTelegram size={28} />,
+  discord: <FaDiscord size={28} />,
+  threads: <AiFillInstagram size={28} />, // threads belum ada, pakai ig icon
+};
 
 type HeroSectionProps = {
   typedHeroText: string;
@@ -19,30 +47,9 @@ type HeroSectionProps = {
   heroRef: React.RefObject<HTMLElement>;
 };
 
-const heroSocials = [
-  {
-    label: "GitHub",
-    href: "https://github.com/MDF05",
-  },
-  {
-    label: "LinkedIn",
-    href: "https://www.linkedin.com/in/muhammad-dava-fahreza/",
-  },
-  {
-    label: "Dribbble",
-    href: "https://dribbble.com/",
-  },
-  {
-    label: "X / Twitter",
-    href: "https://x.com/",
-  },
-];
-
 export const HeroSection = ({
   typedHeroText,
   cursorVisible,
-  activeProject,
-  activeSlugIndex,
   totalProjects,
   onPrint,
   onShare,
@@ -61,8 +68,45 @@ export const HeroSection = ({
     []
   );
 
+  const currentUrl =
+    typeof window !== "undefined" ? window.location.origin : "";
+
+  const thisYear = new Date().getFullYear();
+
   return (
-    <section ref={heroRef} className="cyber-hero relative">
+    <section ref={heroRef} className="cyber-hero relative pt-24 w-screen">
+      {/* Row 7: Action Buttons */}
+      <div className="flex flex-wrap items-center justify-center gap-3 w-full ">
+        <Button
+          onClick={onPrint}
+          size="lg"
+          className="magnetic-button bg-cyan-500 text-black shadow-[0_0_30px_rgba(0,243,255,0.5)] hover:bg-cyan-400"
+        >
+          <Printer className="h-5 w-5" />
+          CETAK PDF
+        </Button>
+
+        <Button
+          variant="outline"
+          size="lg"
+          className="magnetic-button border-cyan-500/40 text-cyan-300 hover:white "
+          onClick={onShare}
+        >
+          <Share2 className="h-5 w-5" />
+        </Button>
+
+        <Button
+          variant="ghost"
+          size="lg"
+          className="magnetic-button text-purple-300 border border-purple-200 hover:white"
+          onClick={onCustomPdf}
+        >
+          <FileDown className="h-5 w-5" />
+          Custom PDF
+        </Button>
+      </div>
+
+      {/* Binary Particles */}
       <div className="binary-stream">
         {binaryParticles.map((particle) => (
           <span
@@ -78,24 +122,32 @@ export const HeroSection = ({
         ))}
       </div>
 
-      <div className="relative z-10 mx-auto max-w-4xl px-4 py-12">
-        <div className="project-card rounded-3xl border px-6 py-10 shadow-xl">
+      {/* MAIN WRAPPER */}
+      <div className="relative z-10 mx-auto py-12 flex w-full justify-center">
+        <div className="project-card rounded-3xl border px-6 py-10 shadow-xl ">
           <div className="flex flex-col items-center gap-8">
-            {/* Row 1: MY PORTFOLIO */}
-            <div className="text-center">
-              <p className="text-sm uppercase tracking-[1.2em] text-cyan-400 drop-shadow-[0_0_12px_rgba(0,243,255,0.9)]">
+            {/* Header */}
+            <div className="text-center flex w-full flex-col items-center justify-center gap-2">
+              <p className="flex w-full items-center justify-center text-center text-3xl uppercase tracking-[1.2em] text-cyan-400 drop-shadow-[0_0_12px_rgba(0,243,255,0.9)]">
                 MY PORTFOLIO
               </p>
+
+              <a
+                href={currentUrl}
+                className="flex w-full items-center justify-center text-center text-xl tracking-[.5em] text-gray-400 drop-shadow-[0_0_12px_rgba(0,243,255,0.9)]"
+              >
+                {currentUrl}
+              </a>
             </div>
 
-            {/* Row 2: Profile Image - Centered, Larger Size */}
+            {/* Profile Image */}
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8 }}
               className="flex justify-center"
             >
-              <div className="tech-frame h-96 w-80 overflow-hidden rounded-2xl md:h-[28rem] md:w-[22rem]">
+              <div className="tech-frame h-[500px] w-[300px] overflow-hidden rounded-2xl">
                 <img
                   src={profileImage}
                   alt="Muhammad Dava Fahreza"
@@ -104,19 +156,20 @@ export const HeroSection = ({
               </div>
             </motion.div>
 
-            {/* Row 3: Name and Title */}
+            {/* Name + Role */}
             <div className="text-center">
               <motion.h1
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8 }}
-                className="font-orbitron text-4xl font-bold text-white md:text-5xl lg:text-6xl"
+                className="font-orbitron font-bold text-white text-5xl"
               >
                 <span className="bg-gradient-to-r from-cyan-400 via-purple-400 to-emerald-300 bg-clip-text text-transparent">
                   Muhammad Dava Fahreza
                 </span>
               </motion.h1>
-              <div className="mt-3 text-lg font-semibold text-cyan-200">
+
+              <div className="mt-3 text-4xl font-semibold text-cyan-200">
                 <span>{typedHeroText}</span>
                 <span
                   className={cn(
@@ -129,85 +182,58 @@ export const HeroSection = ({
               </div>
             </div>
 
-            {/* Row 4: Email */}
-            <div className="text-center">
-              <a
-                href="mailto:mdavafahreza05@gmail.com"
-                className="inline-flex items-center gap-2 text-base text-cyan-300 transition hover:text-cyan-100"
-              >
-                <Mail className="h-5 w-5" />
-                mdavafahreza05@gmail.com
-              </a>
+            {/* Description */}
+            <div className="w-full mt-6 glow-box rounded-2xl border border-white/10 bg-white/5 px-6 py-6 backdrop-blur-md shadow-[0_0_25px_rgba(0,255,255,0.12)]">
+              <p className="text-xl  text-pretty text-justify text-white/90 leading-relaxed tracking-wide drop-shadow-[0_0_6px_rgba(0,255,255,0.4)]">
+                “ {profileData.description} ”
+              </p>
             </div>
 
-            {/* Row 5: Social Links */}
-            <div className="flex flex-wrap items-center justify-center gap-3">
-              {heroSocials.map((social) => (
-                <a
-                  key={social.label}
-                  href={social.href}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="hologram-icon rounded-full border border-white/10 px-4 py-2 text-sm text-white/80 transition hover:text-white"
-                >
-                  {social.label}
-                </a>
-              ))}
-            </div>
+            <div className="mt-8 grid grid-cols-4 gap-5 text-gray-300 text-lg">
+              <div className="p-5 rounded-xl bg-white/5 border border-white/10 backdrop-blur-md shadow-md">
+                <p className="text-cyan-300 font-semibold text-xl">
+                  {thisYear - profileData.experience.getFullYear()}+ Years
+                </p>
+                <p className="text-gray-400 text-sm">Of experience</p>
+              </div>
 
-            {/* Row 6: Active Project Info */}
-            <div className="w-full rounded-xl border border-white/10 bg-white/5 p-4 text-center">
-              <p className="text-xs text-white/50">Proyek Aktif</p>
-              <p className="mt-1 text-xl font-semibold text-white">
-                {activeProject.title}
-              </p>
-              <p className="mt-1 text-sm text-cyan-200">
-                {activeSlugIndex + 1} / {totalProjects}
-              </p>
-              <div className="mt-3 flex flex-wrap justify-center gap-2">
-                {activeProject.technologies.slice(0, 4).map((tech) => {
-                  const TechIcon = getTechIcon(tech);
-                  return (
-                    <span
-                      key={tech}
-                      className="inline-flex items-center gap-1.5 rounded-full border border-cyan-400/40 px-3 py-1.5 text-xs text-cyan-100"
-                    >
-                      {TechIcon && <TechIcon className="h-3.5 w-3.5" />}
-                      {tech}
-                    </span>
-                  );
-                })}
+              <div className="p-5 rounded-xl bg-white/5 border border-white/10 backdrop-blur-md shadow-md">
+                <p className="text-cyan-300 font-semibold text-xl">
+                  {totalProjects}
+                </p>
+                <p className="text-gray-400 text-sm">Completed projects</p>
+              </div>
+
+              <div className="p-5 rounded-xl bg-white/5 border border-white/10 backdrop-blur-md shadow-md">
+                <p className="text-cyan-300 font-semibold text-xl">
+                  {certificationsData.length - 4}++
+                </p>
+                <p className="text-gray-400 text-sm">Certificates earned</p>
+              </div>
+
+              <div className="p-5 rounded-xl bg-white/5 border border-white/10 backdrop-blur-md shadow-md">
+                <p className="text-cyan-300 font-semibold text-xl">
+                  {alltechUsed.length - 20}++
+                </p>
+                <p className="text-gray-400 text-sm">Tech stack used</p>
               </div>
             </div>
 
-            {/* Row 7: Action Buttons */}
-            <div className="flex flex-wrap items-center justify-center gap-3">
-              <Button
-                onClick={onPrint}
-                size="lg"
-                className="magnetic-button bg-cyan-500 text-black shadow-[0_0_30px_rgba(0,243,255,0.5)] hover:bg-cyan-400"
-              >
-                <Printer className="h-5 w-5" />
-                CETAK PDF
-              </Button>
-              <Button
-                variant="outline"
-                size="lg"
-                className="magnetic-button border-cyan-500/40 text-cyan-300 hover:bg-cyan-500/10"
-                onClick={onShare}
-              >
-                <Share2 className="h-5 w-5" />
-                Bagikan
-              </Button>
-              <Button
-                variant="ghost"
-                size="lg"
-                className="magnetic-button text-purple-300 hover:bg-purple-500/10"
-                onClick={onCustomPdf}
-              >
-                <FileDown className="h-5 w-5" />
-                Custom PDF
-              </Button>
+            {/* Social Icons */}
+            <div className="flex items-center justify-center gap-4 mt-6">
+              {Object.entries(profileData.socialMedia ?? {}).map(
+                ([key, social]) => (
+                  <a
+                    key={key}
+                    href={social.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-cyan-300 hover:text-white transition transform hover:scale-125"
+                  >
+                    {icons[key]}
+                  </a>
+                )
+              )}
             </div>
           </div>
         </div>
@@ -215,4 +241,3 @@ export const HeroSection = ({
     </section>
   );
 };
-

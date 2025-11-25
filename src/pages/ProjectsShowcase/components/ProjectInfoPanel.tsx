@@ -22,7 +22,7 @@ const InfoRow = ({
   </div>
 );
 
-const TypewriterText = ({ text }: { text: string }) => {
+export const TypewriterText = ({ text }: { text: string }) => {
   const [displayed, setDisplayed] = useState("");
   useEffect(() => {
     let index = 0;
@@ -50,10 +50,16 @@ export const ProjectInfoPanel = ({
   primaryColor,
 }: ProjectInfoPanelProps) => (
   <div className="space-y-6 rounded-2xl border border-white/10 bg-white/5 p-6 text-white/80">
+    {/* // ! detail project */}
     <div className="grid gap-4 text-sm">
       <InfoRow
         label="Timeline"
         value={project.duration}
+        colorClass={primaryColor}
+      />
+      <InfoRow
+        label="Start Date"
+        value={project.startDate}
         colorClass={primaryColor}
       />
       <InfoRow
@@ -66,9 +72,31 @@ export const ProjectInfoPanel = ({
         value={project.category.toUpperCase()}
         colorClass={primaryColor}
       />
-      <InfoRow label="Team" value={project.teamSize} colorClass={primaryColor} />
+      <InfoRow
+        label="Team"
+        value={project.teamSize}
+        colorClass={primaryColor}
+      />
     </div>
 
+    {/* // ! features */}
+    <div data-section="features">
+      <p className="text-xs uppercase tracking-[0.5em] text-white/40">
+        Features
+      </p>
+      <div className="mt-2 grid gap-2 text-sm text-white/80">
+        {project.features.map((feature) => (
+          <div
+            key={feature}
+            className="rounded-lg border border-white/10 bg-white/5 px-3 py-2"
+          >
+            {feature}
+          </div>
+        ))}
+      </div>
+    </div>
+
+    {/* // ! techonologies */}
     <div>
       <p className="text-xs uppercase tracking-[0.5em] text-white/40">
         TECHNOLOGIES
@@ -89,40 +117,47 @@ export const ProjectInfoPanel = ({
       </div>
     </div>
 
-    <div data-section="description" className="space-y-2">
+    {/* // ! github link */}
+    <div>
       <p className="text-xs uppercase tracking-[0.5em] text-white/40">
-        Description
+        github link
       </p>
-      <TypewriterText text={project.description} />
+      <a
+        href={project.demo}
+        target="_blank"
+        rel="noreferrer"
+        className="hover:text-white text-cyan-200 "
+      >
+        {project.github}
+      </a>
     </div>
 
-    <div data-section="case-study">
+    {/* // ! qr-code image */}
+    <div>
       <p className="text-xs uppercase tracking-[0.5em] text-white/40">
-        Case Study
+        live demo
       </p>
-      <p className="mt-2 text-sm leading-relaxed text-white/80">
-        {project.caseStudy}
-      </p>
-    </div>
-
-    <div data-section="features">
-      <p className="text-xs uppercase tracking-[0.5em] text-white/40">
-        Features
-      </p>
-      <div className="mt-2 grid gap-2 text-sm text-white/80">
-        {project.features.map((feature) => (
-          <div
-            key={feature}
-            className="rounded-lg border border-white/10 bg-white/5 px-3 py-2"
-          >
-            {feature}
-          </div>
-        ))}
+      <a
+        href={project.demo}
+        target="_blank"
+        rel="noreferrer"
+        className="hover:text-white text-cyan-200 "
+      >
+        {project.demo}
+      </a>
+      <div className="qr-shell mt-4 w-full rounded-2xl border border-white/10 p-4">
+        <p className="mb-2 text-xs text-white/40">SCAN ME</p>
+        <img
+          src={project.qrCodeImage}
+          alt={`${project.title} QR`}
+          className="mx-auto h-52 w-full object-contain"
+        />
       </div>
     </div>
 
-    <div
-      className="flex flex-wrap gap-3 text-sm text-cyan-200"
+    {/* // ! action link */}
+    {/* <div
+      className="flex flex-wrap gap-3 text-cyan-200 justify-center text-2xl"
       data-section="links"
     >
       <a
@@ -142,7 +177,6 @@ export const ProjectInfoPanel = ({
       >
         GitHub
       </a>
-    </div>
+    </div> */}
   </div>
 );
-

@@ -7,11 +7,11 @@ const Navigation = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navItems = [
-    { name: "About", href: "#about" },
-    { name: "Tech Stack", href: "#tech-stack" },
-    { name: "Projects", href: "#projects" },
-    { name: "Certificates", href: "#certificates" },
-    { name: "Contact", href: "#contact" },
+    { name: "About", href: "/#about" },
+    { name: "Tech Stack", href: "/#tech-stack" },
+    { name: "Projects", href: "/#projects" },
+    { name: "Certificates", href: "/#certificates" },
+    { name: "Contact", href: "/#contact" },
   ];
 
   useEffect(() => {
@@ -36,7 +36,7 @@ const Navigation = () => {
           {/* Logo */}
           <div className="flex-shrink-0">
             <a
-              href="#"
+              href="/"
               className="text-2xl font-orbitron font-bold gradient-text"
             >
               &lt;MDF/&gt;

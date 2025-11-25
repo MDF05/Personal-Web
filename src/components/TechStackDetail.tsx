@@ -47,8 +47,6 @@ export const TechStackDetail = ({
 
   // Handle ESC key
   useEffect(() => {
-    console.log(relatedCertifications);
-
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
     };

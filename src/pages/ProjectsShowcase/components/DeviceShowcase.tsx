@@ -1,5 +1,6 @@
 import { Sparkles } from "lucide-react";
 import type { ProjectTypes } from "@/types/projects.types";
+import { TypewriterText } from "./ProjectInfoPanel";
 
 type DeviceShowcaseProps = {
   project: ProjectTypes;
@@ -24,19 +25,19 @@ export const DeviceShowcase = ({ project }: DeviceShowcaseProps) => {
             <img
               src={laptopImage}
               alt={`${project.title} laptop preview`}
-              className="h-56 w-full rounded-2xl object-cover"
+              className="w-full rounded-2xl "
             />
           )}
         </div>
 
-        <div className="grid gap-4 md:grid-cols-[1fr_0.75fr]">
-          <div className="device-shell tablet-shell">
+        <div className="grid gap-4 md:grid-cols-[1fr_0.75fr] ">
+          <div className="device-shell tablet-shell ">
             <p className="mb-2 text-xs text-white/50">TABLET</p>
             {tabletImage && (
               <img
                 src={tabletImage}
                 alt={`${project.title} tablet preview`}
-                className="h-48 w-full rounded-2xl object-cover"
+                className="h-[450px] rounded-2xl object-cover"
               />
             )}
           </div>
@@ -47,22 +48,32 @@ export const DeviceShowcase = ({ project }: DeviceShowcaseProps) => {
                 <img
                   src={mobileImage}
                   alt={`${project.title} mobile preview`}
-                  className="h-48 w-full rounded-2xl object-cover"
+                  className="h-[450px] rounded-2xl object-cover"
                 />
               )}
             </div>
-            <div className="qr-shell mt-4 w-full rounded-2xl border border-white/10 p-4">
-              <p className="mb-2 text-xs text-white/40">SCAN ME</p>
-              <img
-                src={project.qrCodeImage}
-                alt={`${project.title} QR`}
-                className="mx-auto h-32 w-32 object-contain"
-              />
-            </div>
+          </div>
+        </div>
+
+        {/* // ! info project */}
+        <div className="grid gap-5">
+          <div data-section="description" className="space-y-2">
+            <p className="text-xs uppercase tracking-[0.5em] text-white/40">
+              Description
+            </p>
+            <TypewriterText text={project.description} />
+          </div>
+
+          <div data-section="case-study">
+            <p className="text-xs uppercase tracking-[0.5em] text-white/40">
+              Case Study
+            </p>
+            <p className="mt-2 text-sm leading-relaxed text-white/80">
+              {project.caseStudy}
+            </p>
           </div>
         </div>
       </div>
     </div>
   );
 };
-
